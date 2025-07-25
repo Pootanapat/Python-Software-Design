@@ -77,13 +77,8 @@ loginForm.addEventListener('submit', async function(event) {
 registerLink.addEventListener('click', function(event) {
     event.preventDefault(); // หยุดการเปลี่ยนเส้นทางแบบปกติ
 
-    alert('กำลังเปลี่ยนเส้นทางไปยังหน้าสมัครสมาชิก... (หน้านี้จะถูกสร้างแยกต่างหาก)');
-    // *******************************************************************
-    // ในโปรเจกต์จริง:
-    // - คุณจะต้องสร้างไฟล์ HTML ใหม่สำหรับหน้าสมัครสมาชิก (เช่น register.html)
-    // - และเปลี่ยนเส้นทางผู้ใช้ไปที่หน้านั้น
-    // *******************************************************************
-    // window.location.href = 'register.html';
+    // เปลี่ยนเส้นทางไปยังหน้าสมัครสมาชิก (register.html)
+    window.location.href = 'register.html';
 });
 
 // 6. เพิ่ม Event Listener สำหรับลิงก์ "ลืมรหัสผ่าน?"

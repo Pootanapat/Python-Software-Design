@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สมัครสมาชิก - ระบบจัดการฟาร์ม</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter for general text -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Background image with subtle gradient overlay - Farm/Nature theme */
+            background-image: url('https://placehold.co/1920x1080/A8D8AD/EBF4EB'); /* Placeholder image, replace with actual farm/nature image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex; /* Use flexbox */
+            flex-direction: column; /* Stack items vertically */
+            justify-content: center; /* Center items vertically */
+            align-items: center; /* Center items horizontally */
+            min-height: 100vh;
+            overflow: hidden; /* Prevent scrollbars */
+            position: relative;
+        }
+
+        /* Overlay for subtle gradient and depth, adjusted for farm theme */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(129, 199, 132, 0.2) 0%, rgba(174, 213, 129, 0.2) 100%); /* Softer greenish gradient */
+            z-index: 1;
+        }
+
+        .glass-card {
+            /* Glassmorphism effect - slightly adjusted for farm theme */
+            background: rgba(255, 255, 255, 0.1); /* More transparent white */
+            backdrop-filter: blur(8px) saturate(150%); /* Slightly less blur/saturate */
+            -webkit-backdrop-filter: blur(8px) saturate(150%); /* Safari support */
+            border-radius: 1.5rem; /* Rounded corners */
+            border: 1px solid rgba(255, 255, 255, 0.15); /* Softer white border */
+            box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.25); /* Softer shadow for depth */
+            z-index: 2; /* Ensure it's above the body overlay */
+        }
+
+        .input-field {
+            background: rgba(255, 255, 255, 0.15); /* More transparent input background */
+            border: 1px solid rgba(255, 255, 255, 0.25); /* Softer input border */
+            color: #ffffff; /* White text for inputs */
+            padding-left: 2.5rem; /* Space for icon */
+        }
+
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.6); /* Lighter placeholder text */
+        }
+
+        .input-icon {
+            color: rgba(255, 255, 255, 0.7); /* Icon color */
+        }
+
+        .register-button {
+            background: linear-gradient(90deg, #66BB6A 0%, #AED581 100%); /* Softer green gradient for farm theme */
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(102, 187, 106, 0.3);
+        }
+
+        .register-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(102, 187, 106, 0.5);
+        }
+
+        .text-link {
+            color: rgba(255, 255, 255, 0.7); /* Softer link color */
+            transition: color 0.3s ease;
+        }
+
+        .text-link:hover {
+            color: #EBF4EB; /* Very light green on hover */
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Main Application Title -->
+    <div class="text-white text-center mb-8 z-20">
+        <h1 class="text-4xl md:text-5xl font-bold drop-shadow-lg">ระบบจัดการฟาร์ม</h1>
+        <p class="text-xl md:text-2xl mt-2 text-gray-200">เข้าสู่โลกแห่งการเกษตรยุคใหม่</p>
+    </div>
+
+    <!-- Register Card -->
+    <div class="glass-card p-5 md:p-6 w-11/12 max-w-sm mx-auto relative">
+        <h2 class="text-2xl font-bold text-center mb-4 text-white">สมัครสมาชิก</h2>
+
+        <form id="registerForm" class="space-y-5">
+            <!-- Email Input -->
+            <div class="relative">
+                <i class="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 input-icon"></i>
+                <input type="email" id="registerEmail" placeholder="อีเมล"
+                       class="input-field w-full px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-300 text-lg">
+            </div>
+
+            <!-- Password Input -->
+            <div class="relative">
+                <i class="fas fa-lock absolute left-4 top-1/2 transform -translate-y-1/2 input-icon"></i>
+                <input type="password" id="registerPassword" placeholder="รหัสผ่าน"
+                       class="input-field w-full px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-300 text-lg">
+            </div>
+
+            <!-- Confirm Password Input -->
+            <div class="relative">
+                <i class="fas fa-lock absolute left-4 top-1/2 transform -translate-y-1/2 input-icon"></i>
+                <input type="password" id="confirmPassword" placeholder="ยืนยันรหัสผ่าน"
+                       class="input-field w-full px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-300 text-lg">
+            </div>
+
+            <!-- Register Button -->
+            <button type="submit"
+                    class="register-button w-full py-2.5 rounded-xl text-white font-semibold text-xl shadow-lg">
+                สมัครสมาชิก
+            </button>
+        </form>
+
+        <!-- Login Link -->
+        <div class="text-center mt-5 text-base">
+            <span class="text-link">มีบัญชีอยู่แล้วใช่ไหม?</span>
+            <a href="index.html" id="loginLink" class="text-link font-semibold hover:underline ml-1">เข้าสู่ระบบ</a>
+        </div>
+    </div>
+
+    <!-- Link to register.js -->
+    <script src="register.js"></script>
+</body>
+</html>
