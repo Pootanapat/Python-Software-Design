@@ -97,3 +97,50 @@ if (forgotPasswordLink) { // ตรวจสอบว่าลิงก์มี
         // window.location.href = 'forgot_password.html';
     });
 }
+// app.js - สำหรับหน้า Login (index.html)
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('loginForm');
+    const registerLink = document.getElementById('registerLink');
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // ป้องกันการ Submit ฟอร์มแบบปกติ
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                // ส่งข้อมูลไปที่ Backend Node.js
+                const response = await fetch('http://localhost:5000/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Login สำเร็จ
+                    alert('เข้าสู่ระบบสำเร็จ!');
+                    // เปลี่ยนเส้นทางไปยังหน้าเลือกฟาร์ม
+                    window.location.href = 'farm_selection.html'; // <--- เปลี่ยนตรงนี้
+                } else {
+                    // Login ไม่สำเร็จ
+                    alert('เข้าสู่ระบบไม่สำเร็จ: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error during login:', error);
+                alert('ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้ กรุณาลองใหม่อีกครั้ง หรือตรวจสอบว่า Backend ทำงานอยู่');
+            }
+        });
+    }
+
+    if (registerLink) {
+        registerLink.addEventListener('click', (e) => {
+            e.preventDefault(); // ป้องกันการเปลี่ยนหน้าแบบปกติ
+            window.location.href = 'register.html'; // เปลี่ยนเส้นทางไปหน้าสมัครสมาชิก
+        });
+    }
+});

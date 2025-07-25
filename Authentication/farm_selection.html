@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minifarm - เลือกฟาร์ม</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #E8F5E9; /* Light green background, similar to index.html */
+        }
+        .farm-card {
+            background-color: #FFFFFF; /* White background for cards */
+            border: 1px solid #B2DFDB; /* Light teal border for subtle contrast */
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .farm-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .farm-card.selected {
+            border-color: #4CAF50; /* Green border when selected */
+            box-shadow: 0 0 0 3px #4CAF50; /* Green glow when selected */
+        }
+        .btn-primary {
+            background-color: #4CAF50; /* Green button */
+            transition: background-color 0.2s ease-in-out;
+        }
+        .btn-primary:hover {
+            background-color: #388E3C; /* Darker green on hover */
+        }
+        .btn-secondary {
+            background-color: #F44336; /* Red for logout */
+            transition: background-color 0.2s ease-in-out;
+        }
+        .btn-secondary:hover {
+            background-color: #D32F2F; /* Darker red on hover */
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen items-center justify-center p-4">
+
+    <!-- Header and Logout Button -->
+    <div class="w-full max-w-4xl flex justify-between items-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-800">Minifarm</h1>
+        <button id="logoutButton" class="btn-secondary text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-75">
+            ออกจากระบบ
+        </button>
+    </div>
+
+    <!-- Main Content Card -->
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-2xl text-center">
+        <h2 class="text-3xl font-semibold text-gray-800 mb-8">เลือกฟาร์มของคุณ</h2>
+
+        <!-- Farm Selection Cards Container -->
+        <div id="farmCardsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Farm Card 1 -->
+            <div class="farm-card p-6 rounded-xl shadow-md hover:shadow-lg flex flex-col items-center justify-center min-h-[150px]" data-farm-id="farm1">
+                <p class="text-xl font-medium text-gray-700 mb-2">ฟาร์มที่ 1</p>
+                <p class="text-sm text-gray-500">สวนผักอินทรีย์</p>
+            </div>
+            <!-- Farm Card 2 -->
+            <div class="farm-card p-6 rounded-xl shadow-md hover:shadow-lg flex flex-col items-center justify-center min-h-[150px]" data-farm-id="farm2">
+                <p class="text-xl font-medium text-gray-700 mb-2">ฟาร์มที่ 2</p>
+                <p class="text-sm text-gray-500">ไร่ผลไม้รวม</p>
+            </div>
+            <!-- Farm Card 3 -->
+            <div class="farm-card p-6 rounded-xl shadow-md hover:shadow-lg flex flex-col items-center justify-center min-h-[150px]" data-farm-id="farm3">
+                <p class="text-xl font-medium text-gray-700 mb-2">ฟาร์มที่ 3</p>
+                <p class="text-sm text-gray-500">บ่อปลาอัจฉริยะ</p>
+            </div>
+            <!-- Add more farm cards dynamically if needed -->
+        </div>
+
+        <!-- Next Button -->
+        <button id="nextButton" class="btn-primary text-white font-semibold py-3 px-8 rounded-lg shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75" disabled>
+            ดำเนินการต่อ
+        </button>
+    </div>
+
+    <script type="module">
+        // Import Firebase Authentication
+        import { getAuth, signOut } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
+
+        // Initialize Firebase (using the same config as your frontend)
+        // This config should ideally be loaded from a secure environment variable or a config file
+        // For Canvas environment, __firebase_config is provided globally
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        let selectedFarmId = null;
+        const farmCards = document.querySelectorAll('.farm-card');
+        const nextButton = document.getElementById('nextButton');
+        const logoutButton = document.getElementById('logoutButton');
+
+        // Function to handle farm card selection
+        farmCards.forEach(card => {
+            card.addEventListener('click', () => {
+                // Remove 'selected' class from all cards
+                farmCards.forEach(c => c.classList.remove('selected'));
+                // Add 'selected' class to the clicked card
+                card.classList.add('selected');
+                selectedFarmId = card.dataset.farmId; // Get farm ID from data-farm-id attribute
+                nextButton.disabled = false; // Enable the Next button
+            });
+        });
+
+        // Event listener for the Next button
+        nextButton.addEventListener('click', () => {
+            if (selectedFarmId) {
+                console.log('Selected Farm ID:', selectedFarmId);
+                // In a real application, you would save this selection
+                // and redirect to a dashboard specific to this farm.
+                // For now, let's just show an alert and redirect to a placeholder.
+                alert(`คุณได้เลือก ${selectedFarmId} แล้ว!`);
+                // Placeholder redirect: Replace with your actual dashboard page
+                window.location.href = 'dashboard.html?farm=' + selectedFarmId;
+            } else {
+                alert('กรุณาเลือกฟาร์มก่อนดำเนินการต่อ');
+            }
+        });
+
+        // Event listener for the Logout button
+        logoutButton.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                alert('ออกจากระบบสำเร็จ');
+                window.location.href = 'index.html'; // Redirect to login page
+            } catch (error) {
+                console.error('Error signing out:', error);
+                alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message);
+            }
+        });
+
+        // Basic authentication check (optional, but good practice)
+        // Redirect to login if user is not authenticated
+        auth.onAuthStateChanged(user => {
+            if (!user) {
+                // If no user is logged in, redirect to the login page
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>
