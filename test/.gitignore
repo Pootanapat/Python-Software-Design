@@ -69,7 +69,7 @@ node_modules/
 .dataconnect
 # Ignore Node.js backend sensitive files and modules
 backend-nodejs/node_modules/
-backend-nodejs/serviceAccountKey.json
+backend-nodejs/serviceAccountKey.json 
 
 # Ignore Python virtual environment (if you used Python backend before)
 venv/
