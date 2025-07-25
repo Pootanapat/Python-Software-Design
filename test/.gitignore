@@ -67,3 +67,16 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+# Ignore Node.js backend sensitive files and modules
+backend-nodejs/node_modules/
+backend-nodejs/serviceAccountKey.json
+
+# Ignore Python virtual environment (if you used Python backend before)
+venv/
+.env
+__pycache__/
+*.pyc
+
+# Ignore frontend specific files (if any)
+# For example:
+# frontend/node_modules/
