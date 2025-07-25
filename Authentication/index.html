@@ -1,46 +1,199 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Authentication Page</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    </head>
-    <body>
-        <div class="container">
-            <div id ="form-area">
-                <h1> Register </h1>
-                <form id="registerForm">
-                    <div class="form-group">
-                        <label for="email">Email address</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter email">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-                <hr>
-                <h2>Login</h2>
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label for="loginEmail">Email address</label>
-                        <input type="email" class="form-control" id="loginEmail" placeholder="Enter email">
-                    </div>
-                    <div class="form-group">
-                        <label for="loginPassword">Password</label>
-                        <input type="password" class="form-control" id="loginPassword" placeholder="Password">
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="background-color: green;">Login</button>
-                </form>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เข้าสู่ระบบ - ระบบจัดการฟาร์ม</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter for general text -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Background image with subtle gradient overlay - Farm/Nature theme */
+            /* Removed text from placeholder image URL */
+            background-image: url('https://placehold.co/1920x1080/A8D8AD/EBF4EB'); /* Placeholder image, replace with actual farm/nature image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex; /* Use flexbox */
+            flex-direction: column; /* Stack items vertically */
+            justify-content: center; /* Center items vertically */
+            align-items: center; /* Center items horizontally */
+            min-height: 100vh;
+            overflow: hidden; /* Prevent scrollbars */
+            position: relative;
+        }
+
+        /* Overlay for subtle gradient and depth, adjusted for farm theme */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(129, 199, 132, 0.2) 0%, rgba(174, 213, 129, 0.2) 100%); /* Softer greenish gradient */
+            z-index: 1;
+        }
+
+        .glass-card {
+            /* Glassmorphism effect - slightly adjusted for farm theme */
+            background: rgba(255, 255, 255, 0.1); /* More transparent white */
+            backdrop-filter: blur(8px) saturate(150%); /* Slightly less blur/saturate */
+            -webkit-backdrop-filter: blur(8px) saturate(150%); /* Safari support */
+            border-radius: 1.5rem; /* Rounded corners */
+            border: 1px solid rgba(255, 255, 255, 0.15); /* Softer white border */
+            box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.25); /* Softer shadow for depth */
+            z-index: 2; /* Ensure it's above the body overlay */
+        }
+
+        .input-field {
+            background: rgba(255, 255, 255, 0.15); /* More transparent input background */
+            border: 1px solid rgba(255, 255, 255, 0.25); /* Softer input border */
+            color: #ffffff; /* White text for inputs */
+            padding-left: 2.5rem; /* Space for icon */
+        }
+
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.6); /* Lighter placeholder text */
+        }
+
+        .input-icon {
+            color: rgba(255, 255, 255, 0.7); /* Icon color */
+        }
+
+        .login-button {
+            background: linear-gradient(90deg, #66BB6A 0%, #AED581 100%); /* Softer green gradient for farm theme */
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(102, 187, 106, 0.3);
+        }
+
+        .login-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(102, 187, 106, 0.5);
+        }
+
+        .text-link {
+            color: rgba(255, 255, 255, 0.7); /* Softer link color */
+            transition: color 0.3s ease;
+        }
+
+        .text-link:hover {
+            color: #EBF4EB; /* Very light green on hover */
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Main Application Title -->
+    <div class="text-white text-center mb-8 z-20"> <!-- z-index to be above overlay -->
+        <h1 class="text-4xl md:text-5xl font-bold drop-shadow-lg">ระบบจัดการฟาร์ม</h1>
+        <p class="text-xl md:text-2xl mt-2 text-gray-200">เข้าสู่โลกแห่งการเกษตรยุคใหม่</p>
+    </div>
+
+    <!-- Login Card -->
+    <div class="glass-card p-5 md:p-6 w-11/12 max-w-sm mx-auto relative">
+        <h2 class="text-2xl font-bold text-center mb-4 text-white">เข้าสู่ระบบ</h2>
+
+        <form id="loginForm" class="space-y-5">
+            <!-- Username Input -->
+            <div class="relative">
+                <i class="fas fa-user absolute left-4 top-1/2 transform -translate-y-1/2 input-icon"></i>
+                <input type="text" id="username" placeholder="ชื่อผู้ใช้"
+                       class="input-field w-full px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-300 text-lg">
             </div>
-            <div id ="profile">
-                <h3 id="welcome">Hi user</h3>
-                <button id="logout" class="btn btn-success">Logout</button>
+
+            <!-- Password Input -->
+            <div class="relative">
+                <i class="fas fa-lock absolute left-4 top-1/2 transform -translate-y-1/2 input-icon"></i>
+                <input type="password" id="password" placeholder="รหัสผ่าน"
+                       class="input-field w-full px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-300 text-lg">
             </div>
+
+            <!-- Remember Me & Forgot Password -->
+            <div class="flex justify-between items-center text-sm">
+                <label class="flex items-center cursor-pointer">
+                    <input type="checkbox" id="rememberMe" class="form-checkbox text-green-500 rounded-md focus:ring-green-400">
+                    <span class="ml-2 text-link">จดจำฉัน</span>
+                </label>
+                <a href="#" class="text-link hover:underline">ลืมรหัสผ่าน?</a>
+            </div>
+
+            <!-- Login Button -->
+            <button type="submit"
+                    class="login-button w-full py-2.5 rounded-xl text-white font-semibold text-xl shadow-lg">
+                เข้าสู่ระบบ
+            </button>
+        </form>
+
+        <!-- Register Link -->
+        <div class="text-center mt-5 text-base">
+            <span class="text-link">ยังไม่มีบัญชีใช่ไหม?</span>
+            <a href="#" id="registerLink" class="text-link font-semibold hover:underline ml-1">สมัครสมาชิก</a>
         </div>
-        <script src="app.js" type="module"></script>
-    </body>
+    </div>
+
+    <script>
+        // JavaScript for handling form submission (for demonstration)
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+
+            if (username && password) {
+                // In a real application, you would send this data to your Firebase Backend
+                console.log('Login Attempt:');
+                console.log('Username:', username);
+                console.log('Password:', password);
+                console.log('Remember Me:', rememberMe);
+                alert('ฟังก์ชันเข้าสู่ระบบยังไม่ได้ถูกนำมาใช้งาน กรุณาตรวจสอบ Console สำหรับรายละเอียด!');
+                // Example: Call a backend function here to authenticate user
+                // authenticateUser(username, password);
+            } else {
+                alert('กรุณากรอกชื่อผู้ใช้และรหัสผ่าน');
+            }
+        });
+
+        // JavaScript for Register link (for demonstration)
+        document.getElementById('registerLink').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default link behavior
+            alert('กำลังเปลี่ยนเส้นทางไปยังหน้าสมัครสมาชิก... (ฟังก์ชันยังไม่ได้ถูกนำมาใช้งาน)');
+            // Example: Redirect to a register page
+            // window.location.href = 'register.html';
+        });
+
+        // Placeholder for a backend authentication function (will be implemented by Backend Dev)
+        async function authenticateUser(username, password) {
+            // This function would typically call your Python backend
+            // Example using fetch (if this was a web app talking to a Flask/Django backend):
+            /*
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    alert('Login successful!');
+                    // Redirect to farm selection page
+                } else {
+                    alert('Login failed: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error during login:', error);
+                alert('An error occurred during login.');
+            }
+            */
+            console.log("Authentication logic will be implemented by Backend Developer.");
+        }
+    </script>
+</body>
 </html>
