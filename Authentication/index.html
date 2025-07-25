@@ -13,18 +13,16 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            /* Background image with subtle gradient overlay - Farm/Nature theme */
-            /* Removed text from placeholder image URL */
-            background-image: url('https://placehold.co/1920x1080/A8D8AD/EBF4EB'); /* Placeholder image, replace with actual farm/nature image */
+            background-image: url('https://placehold.co/1920x1080/A8D8AD/EBF4EB'); /* ใส่Link รูปภาพ */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            display: flex; /* Use flexbox */
-            flex-direction: column; /* Stack items vertically */
-            justify-content: center; /* Center items vertically */
-            align-items: center; /* Center items horizontally */
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
             min-height: 100vh;
-            overflow: hidden; /* Prevent scrollbars */
+            overflow: hidden; 
             position: relative;
         }
 
@@ -36,38 +34,37 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(180deg, rgba(129, 199, 132, 0.2) 0%, rgba(174, 213, 129, 0.2) 100%); /* Softer greenish gradient */
+            background: linear-gradient(180deg, rgba(129, 199, 132, 0.2) 0%, rgba(174, 213, 129, 0.2) 100%); 
             z-index: 1;
         }
 
         .glass-card {
-            /* Glassmorphism effect - slightly adjusted for farm theme */
-            background: rgba(255, 255, 255, 0.1); /* More transparent white */
-            backdrop-filter: blur(8px) saturate(150%); /* Slightly less blur/saturate */
-            -webkit-backdrop-filter: blur(8px) saturate(150%); /* Safari support */
-            border-radius: 1.5rem; /* Rounded corners */
-            border: 1px solid rgba(255, 255, 255, 0.15); /* Softer white border */
-            box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.25); /* Softer shadow for depth */
-            z-index: 2; /* Ensure it's above the body overlay */
+            background: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(8px) saturate(150%); 
+            -webkit-backdrop-filter: blur(8px) saturate(150%); 
+            border-radius: 1.5rem; 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.25); 
+            z-index: 2; 
         }
 
         .input-field {
-            background: rgba(255, 255, 255, 0.15); /* More transparent input background */
-            border: 1px solid rgba(255, 255, 255, 0.25); /* Softer input border */
-            color: #ffffff; /* White text for inputs */
-            padding-left: 2.5rem; /* Space for icon */
+            background: rgba(255, 255, 255, 0.15); 
+            border: 1px solid rgba(255, 255, 255, 0.25); 
+            color: #ffffff; 
+            padding-left: 2.5rem; 
         }
 
         .input-field::placeholder {
-            color: rgba(255, 255, 255, 0.6); /* Lighter placeholder text */
+            color: rgba(255, 255, 255, 0.6); 
         }
 
         .input-icon {
-            color: rgba(255, 255, 255, 0.7); /* Icon color */
+            color: rgba(255, 255, 255, 0.7); 
         }
 
         .login-button {
-            background: linear-gradient(90deg, #66BB6A 0%, #AED581 100%); /* Softer green gradient for farm theme */
+            background: linear-gradient(90deg, #66BB6A 0%, #AED581 100%); 
             transition: all 0.3s ease;
             box-shadow: 0 3px 10px rgba(102, 187, 106, 0.3);
         }
@@ -78,18 +75,17 @@
         }
 
         .text-link {
-            color: rgba(255, 255, 255, 0.7); /* Softer link color */
+            color: rgba(255, 255, 255, 0.7); 
             transition: color 0.3s ease;
         }
 
         .text-link:hover {
-            color: #EBF4EB; /* Very light green on hover */
+            color: #EBF4EB; 
         }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
-    <!-- Main Application Title -->
-    <div class="text-white text-center mb-8 z-20"> <!-- z-index to be above overlay -->
+    <div class="text-white text-center mb-8 z-20"> 
         <h1 class="text-4xl md:text-5xl font-bold drop-shadow-lg">ระบบจัดการฟาร์ม</h1>
         <p class="text-xl md:text-2xl mt-2 text-gray-200">เข้าสู่โลกแห่งการเกษตรยุคใหม่</p>
     </div>
@@ -139,21 +135,18 @@
     <script>
         // JavaScript for handling form submission (for demonstration)
         document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault(); 
 
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             const rememberMe = document.getElementById('rememberMe').checked;
 
             if (username && password) {
-                // In a real application, you would send this data to your Firebase Backend
                 console.log('Login Attempt:');
                 console.log('Username:', username);
                 console.log('Password:', password);
                 console.log('Remember Me:', rememberMe);
                 alert('ฟังก์ชันเข้าสู่ระบบยังไม่ได้ถูกนำมาใช้งาน กรุณาตรวจสอบ Console สำหรับรายละเอียด!');
-                // Example: Call a backend function here to authenticate user
-                // authenticateUser(username, password);
             } else {
                 alert('กรุณากรอกชื่อผู้ใช้และรหัสผ่าน');
             }
@@ -161,7 +154,7 @@
 
         // JavaScript for Register link (for demonstration)
         document.getElementById('registerLink').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent default link behavior
+            event.preventDefault(); 
             alert('กำลังเปลี่ยนเส้นทางไปยังหน้าสมัครสมาชิก... (ฟังก์ชันยังไม่ได้ถูกนำมาใช้งาน)');
             // Example: Redirect to a register page
             // window.location.href = 'register.html';
@@ -169,29 +162,6 @@
 
         // Placeholder for a backend authentication function (will be implemented by Backend Dev)
         async function authenticateUser(username, password) {
-            // This function would typically call your Python backend
-            // Example using fetch (if this was a web app talking to a Flask/Django backend):
-            /*
-            try {
-                const response = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username, password })
-                });
-                const data = await response.json();
-                if (response.ok) {
-                    alert('Login successful!');
-                    // Redirect to farm selection page
-                } else {
-                    alert('Login failed: ' + data.message);
-                }
-            } catch (error) {
-                console.error('Error during login:', error);
-                alert('An error occurred during login.');
-            }
-            */
             console.log("Authentication logic will be implemented by Backend Developer.");
         }
     </script>
