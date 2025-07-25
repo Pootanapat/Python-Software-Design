@@ -78,6 +78,7 @@ registerLink.addEventListener('click', function(event) {
     event.preventDefault(); // หยุดการเปลี่ยนเส้นทางแบบปกติ
 
     // เปลี่ยนเส้นทางไปยังหน้าสมัครสมาชิก (register.html)
+    // บรรทัดนี้คือตัวที่ควรจะพาไปหน้าใหม่
     window.location.href = 'register.html';
 });
 

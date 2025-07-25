@@ -13,16 +13,16 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-image: url('https://placehold.co/1920x1080/A8D8AD/EBF4EB'); /* ใส่Link รูปภาพ */
+            background-image: url('https://placehold.co/1920x1080/A8D8AD/EBF4EB'); /* Placeholder image, replace with actual farm/nature image */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            overflow: hidden; 
+            overflow: hidden;
             position: relative;
         }
 
@@ -34,37 +34,37 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(180deg, rgba(129, 199, 132, 0.2) 0%, rgba(174, 213, 129, 0.2) 100%); 
+            background: linear-gradient(180deg, rgba(129, 199, 132, 0.2) 0%, rgba(174, 213, 129, 0.2) 100%);
             z-index: 1;
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.1); 
-            backdrop-filter: blur(8px) saturate(150%); 
-            -webkit-backdrop-filter: blur(8px) saturate(150%); 
-            border-radius: 1.5rem; 
-            border: 1px solid rgba(255, 255, 255, 0.15); 
-            box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.25); 
-            z-index: 2; 
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px) saturate(150%);
+            -webkit-backdrop-filter: blur(8px) saturate(150%);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.25);
+            z-index: 2;
         }
 
         .input-field {
-            background: rgba(255, 255, 255, 0.15); 
-            border: 1px solid rgba(255, 255, 255, 0.25); 
-            color: #ffffff; 
-            padding-left: 2.5rem; 
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            padding-left: 2.5rem;
         }
 
         .input-field::placeholder {
-            color: rgba(255, 255, 255, 0.6); 
+            color: rgba(255, 255, 255, 0.6);
         }
 
         .input-icon {
-            color: rgba(255, 255, 255, 0.7); 
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .login-button {
-            background: linear-gradient(90deg, #66BB6A 0%, #AED581 100%); 
+            background: linear-gradient(90deg, #66BB6A 0%, #AED581 100%);
             transition: all 0.3s ease;
             box-shadow: 0 3px 10px rgba(102, 187, 106, 0.3);
         }
@@ -75,17 +75,18 @@
         }
 
         .text-link {
-            color: rgba(255, 255, 255, 0.7); 
+            color: rgba(255, 255, 255, 0.7);
             transition: color 0.3s ease;
         }
 
         .text-link:hover {
-            color: #EBF4EB; 
+            color: #EBF4EB;
         }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
-    <div class="text-white text-center mb-8 z-20"> 
+    <!-- Main Application Title -->
+    <div class="text-white text-center mb-8 z-20">
         <h1 class="text-4xl md:text-5xl font-bold drop-shadow-lg">ระบบจัดการฟาร์ม</h1>
         <p class="text-xl md:text-2xl mt-2 text-gray-200">เข้าสู่โลกแห่งการเกษตรยุคใหม่</p>
     </div>
@@ -95,10 +96,10 @@
         <h2 class="text-2xl font-bold text-center mb-4 text-white">เข้าสู่ระบบ</h2>
 
         <form id="loginForm" class="space-y-5">
-            <!-- Username Input -->
+            <!-- Email Input -->
             <div class="relative">
-                <i class="fas fa-user absolute left-4 top-1/2 transform -translate-y-1/2 input-icon"></i>
-                <input type="text" id="username" placeholder="ชื่อผู้ใช้"
+                <i class="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 input-icon"></i>
+                <input type="email" id="email" placeholder="อีเมล"
                        class="input-field w-full px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-300 text-lg">
             </div>
 
@@ -132,38 +133,7 @@
         </div>
     </div>
 
-    <script>
-        // JavaScript for handling form submission (for demonstration)
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault(); 
-
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const rememberMe = document.getElementById('rememberMe').checked;
-
-            if (username && password) {
-                console.log('Login Attempt:');
-                console.log('Username:', username);
-                console.log('Password:', password);
-                console.log('Remember Me:', rememberMe);
-                alert('ฟังก์ชันเข้าสู่ระบบยังไม่ได้ถูกนำมาใช้งาน กรุณาตรวจสอบ Console สำหรับรายละเอียด!');
-            } else {
-                alert('กรุณากรอกชื่อผู้ใช้และรหัสผ่าน');
-            }
-        });
-
-        // JavaScript for Register link (for demonstration)
-        document.getElementById('registerLink').addEventListener('click', function(event) {
-            event.preventDefault(); 
-            alert('กำลังเปลี่ยนเส้นทางไปยังหน้าสมัครสมาชิก... (ฟังก์ชันยังไม่ได้ถูกนำมาใช้งาน)');
-            // Example: Redirect to a register page
-            // window.location.href = 'register.html';
-        });
-
-        // Placeholder for a backend authentication function (will be implemented by Backend Dev)
-        async function authenticateUser(username, password) {
-            console.log("Authentication logic will be implemented by Backend Developer.");
-        }
-    </script>
+    <!-- Link to app.js -->
+    <script src="app.js"></script>
 </body>
 </html>
