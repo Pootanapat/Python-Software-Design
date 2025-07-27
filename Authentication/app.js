@@ -1,117 +1,45 @@
 // app.js - ไฟล์ JavaScript สำหรับจัดการ Logic ของหน้า Login
 
-// 1. ดึง Element ต่างๆ ที่จำเป็นจาก HTML
-const loginForm = document.getElementById('loginForm'); // ฟอร์ม Login ทั้งหมด
-const emailInput = document.getElementById('email');   // ช่องกรอกอีเมล
-const passwordInput = document.getElementById('password'); // ช่องกรอกรหัสผ่าน
-const rememberMeCheckbox = document.getElementById('rememberMe'); // Checkbox จดจำฉัน
-const registerLink = document.getElementById('registerLink'); // ลิงก์สมัครสมาชิก
-const forgotPasswordLink = document.querySelector('a[href="#"]'); // ลิงก์ลืมรหัสผ่าน
+// Import Firebase Authentication modules
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
+import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
 
-// 2. เพิ่ม Event Listener สำหรับการกดปุ่ม "เข้าสู่ระบบ"
-//    เมื่อผู้ใช้กดปุ่ม submit ในฟอร์ม loginForm, ฟังก์ชัน async นี้จะทำงาน
-loginForm.addEventListener('submit', async function(event) {
-    event.preventDefault(); // สำคัญมาก! หยุดการทำงานปกติของฟอร์ม (ไม่ให้รีเฟรชหน้า)
+// Firebase Client-side Configuration (จากรูปภาพที่คุณส่งมา)
+// คุณต้องแน่ใจว่าค่าเหล่านี้ถูกต้องและมาจาก Firebase Console ของคุณ
+const firebaseConfig = {
+    apiKey: "AIzaSyCHOMHm_XTE1_-oZVloRudi7Fxhs2Ygu_U",
+    authDomain: "my-small-farm-system.firebaseapp.com",
+    projectId: "my-small-farm-system",
+    storageBucket: "my-small-farm-system.firebasestorage.app",
+    messagingSenderId: "214056545877",
+    appId: "1:214056545877:web:ff1b28273d8f65e70c2edc"
+};
 
-    // ดึงค่าที่ผู้ใช้กรอกเข้ามา
-    const email = emailInput.value.trim(); // .trim() ใช้ลบช่องว่างหน้า/หลัง
-    const password = passwordInput.value.trim();
-    const rememberMe = rememberMeCheckbox.checked; // true หรือ false
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-    // ตรวจสอบข้อมูลเบื้องต้น (Validation)
-    if (!email || !password) {
-        alert('กรุณากรอกอีเมลและรหัสผ่านให้ครบถ้วน');
-        return; // หยุดการทำงานถ้าข้อมูลไม่ครบ
-    }
-
-    console.log('--- ข้อมูลเข้าสู่ระบบที่ได้รับ ---');
-    console.log('อีเมล:', email);
-    console.log('รหัสผ่าน:', password); // ในโปรเจกต์จริง ไม่ควร console.log รหัสผ่านใน Production
-    console.log('จดจำฉัน:', rememberMe);
-
-    // *******************************************************************
-    // 3. ส่วนสำคัญ: เรียก Backend API เพื่อทำการ Login
-    //    ตรงนี้คือจุดที่ Frontend (JavaScript) จะส่งข้อมูลไปให้ Backend (Python)
-    //    Backend Developer จะต้องสร้าง API Endpoint สำหรับการ Login
-    // *******************************************************************
-    try {
-        // ตัวอย่างการใช้ fetch API เพื่อส่งข้อมูลไป Backend
-        // สมมติว่า Backend ของเราทำงานอยู่ที่ http://localhost:5000
-        // และมี API สำหรับ Login ที่ /api/login
-        const response = await fetch('http://localhost:5000/api/login', {
-            method: 'POST', // ใช้เมธอด POST สำหรับการส่งข้อมูล Login
-            headers: {
-                'Content-Type': 'application/json' // บอก Backend ว่าข้อมูลที่เราส่งไปเป็น JSON
-            },
-            body: JSON.stringify({ email: email, password: password }) // แปลงข้อมูลเป็น JSON String
-        });
-
-        const data = await response.json(); // รอรับข้อมูลตอบกลับจาก Backend และแปลงเป็น JSON
-
-        // ตรวจสอบผลลัพธ์จาก Backend
-        if (response.ok) { // ถ้า Backend ตอบกลับมาด้วยสถานะ 2xx (เช่น 200 OK)
-            alert('เข้าสู่ระบบสำเร็จ! ยินดีต้อนรับ ' + email);
-            console.log('การตอบกลับจาก Backend (สำเร็จ):', data);
-
-            // *******************************************************************
-            // 4. จัดการหลัง Login สำเร็จ
-            //    - Backend อาจจะส่ง Firebase ID Token หรือข้อมูลผู้ใช้กลับมา
-            //    - คุณอาจจะเก็บ Token นี้ไว้ใน localStorage หรือ sessionStorage เพื่อใช้ในการเรียก API อื่นๆ
-            //    - จากนั้นเปลี่ยนเส้นทางผู้ใช้ไปยังหน้าถัดไป (เช่น หน้าเลือกฟาร์ม)
-            // *******************************************************************
-            // ตัวอย่าง: เปลี่ยนเส้นทางไปยังหน้าเลือกฟาร์ม (สมมติว่ามีไฟล์ชื่อ farm_selection.html)
-            // window.location.href = 'farm_selection.html';
-
-        } else { // ถ้า Backend ตอบกลับมาด้วยสถานะ Error (เช่น 400 Bad Request, 401 Unauthorized)
-            alert('เข้าสู่ระบบไม่สำเร็จ: ' + (data.message || 'เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ'));
-            console.error('การตอบกลับจาก Backend (ข้อผิดพลาด):', data);
-        }
-    } catch (error) {
-        // จัดการข้อผิดพลาดในการเชื่อมต่อ (เช่น Backend ไม่ได้รันอยู่ หรือ Network มีปัญหา)
-        console.error('เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์:', error);
-        alert('ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้ กรุณาลองใหม่อีกครั้ง หรือตรวจสอบว่า Backend ทำงานอยู่');
-    }
-});
-
-// 5. เพิ่ม Event Listener สำหรับลิงก์ "สมัครสมาชิก"
-registerLink.addEventListener('click', function(event) {
-    event.preventDefault(); // หยุดการเปลี่ยนเส้นทางแบบปกติ
-
-    // เปลี่ยนเส้นทางไปยังหน้าสมัครสมาชิก (register.html)
-    // บรรทัดนี้คือตัวที่ควรจะพาไปหน้าใหม่
-    window.location.href = 'register.html';
-});
-
-// 6. เพิ่ม Event Listener สำหรับลิงก์ "ลืมรหัสผ่าน?"
-//    เราใช้ querySelector เพราะมันอาจจะเป็นลิงก์แรกที่มี href="#"
-if (forgotPasswordLink) { // ตรวจสอบว่าลิงก์มีอยู่จริง
-    forgotPasswordLink.addEventListener('click', function(event) {
-        event.preventDefault(); // หยุดการเปลี่ยนเส้นทางแบบปกติ
-
-        alert('ฟังก์ชันลืมรหัสผ่านยังไม่ได้ถูกนำมาใช้งาน');
-        // *******************************************************************
-        // ในโปรเจกต์จริง:
-        // - คุณจะต้องสร้างหน้าสำหรับรีเซ็ตรหัสผ่าน
-        // - และใช้ Firebase Authentication สำหรับการส่งอีเมลรีเซ็ต
-        // *******************************************************************
-        // window.location.href = 'forgot_password.html';
-    });
-}
-// app.js - สำหรับหน้า Login (index.html)
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
     const registerLink = document.getElementById('registerLink');
+    const forgotPasswordLink = document.querySelector('a[href="#"]'); // ลิงก์ลืมรหัสผ่าน
 
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault(); // ป้องกันการ Submit ฟอร์มแบบปกติ
 
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            // ตรวจสอบข้อมูลเบื้องต้น (Validation)
+            if (!email || !password) {
+                alert('กรุณากรอกอีเมลและรหัสผ่านให้ครบถ้วน');
+                return;
+            }
 
             try {
-                // ส่งข้อมูลไปที่ Backend Node.js
-                const response = await fetch('http://localhost:5000/api/login', {
+                // 1. ส่งข้อมูลไปที่ Backend Node.js เพื่อยืนยันตัวตน (Backend จะตรวจสอบว่า Email มีอยู่ในระบบหรือไม่)
+                const backendResponse = await fetch('http://localhost:5000/api/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -119,20 +47,30 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify({ email, password })
                 });
 
-                const data = await response.json();
+                const backendData = await backendResponse.json();
 
-                if (response.ok) {
-                    // Login สำเร็จ
+                if (backendResponse.ok) {
+                    // 2. ถ้า Backend ยืนยันสำเร็จ (ว่า Email มีอยู่) ให้ทำการ Login ด้วย Firebase Client SDK บน Frontend
+                    //    เพื่อให้ Firebase Client SDK สร้าง Session และจัดการสถานะผู้ใช้
+                    await signInWithEmailAndPassword(auth, email, password); // เรียกใช้ signInWithEmailAndPassword โดยตรงจาก auth
+
                     alert('เข้าสู่ระบบสำเร็จ!');
                     // เปลี่ยนเส้นทางไปยังหน้าเลือกฟาร์ม
-                    window.location.href = 'farm_selection.html'; // <--- เปลี่ยนตรงนี้
+                    window.location.href = 'farm_selection.html';
                 } else {
-                    // Login ไม่สำเร็จ
-                    alert('เข้าสู่ระบบไม่สำเร็จ: ' + data.message);
+                    // Login ไม่สำเร็จจาก Backend (เช่น Email ไม่ถูกต้อง)
+                    alert('เข้าสู่ระบบไม่สำเร็จ: ' + (backendData.message || 'เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุจาก Backend'));
                 }
             } catch (error) {
                 console.error('Error during login:', error);
-                alert('ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้ กรุณาลองใหม่อีกครั้ง หรือตรวจสอบว่า Backend ทำงานอยู่');
+                // ตรวจสอบ Error จาก Firebase Client SDK หรือ Network ด้วย
+                if (error.code && error.code.startsWith('auth/')) {
+                    // Error จาก Firebase Authentication (เช่น รหัสผ่านผิด, ผู้ใช้ไม่พบ)
+                    alert('เข้าสู่ระบบไม่สำเร็จ: ' + error.message);
+                } else {
+                    // Error ในการเชื่อมต่อกับ Backend หรืออื่นๆ
+                    alert('ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้ กรุณาลองใหม่อีกครั้ง หรือตรวจสอบว่า Backend ทำงานอยู่');
+                }
             }
         });
     }
@@ -141,6 +79,13 @@ document.addEventListener('DOMContentLoaded', () => {
         registerLink.addEventListener('click', (e) => {
             e.preventDefault(); // ป้องกันการเปลี่ยนหน้าแบบปกติ
             window.location.href = 'register.html'; // เปลี่ยนเส้นทางไปหน้าสมัครสมาชิก
+        });
+    }
+
+    if (forgotPasswordLink) {
+        forgotPasswordLink.addEventListener('click', (e) => {
+            e.preventDefault(); // หยุดการเปลี่ยนเส้นทางแบบปกติ
+            alert('ฟังก์ชันลืมรหัสผ่านยังไม่ได้ถูกนำมาใช้งาน');
         });
     }
 });

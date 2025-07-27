@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minifarm - แดชบอร์ดฟาร์ม</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #E8F5E9; /* Light green background, consistent with other pages */
+        }
+        .card {
+            background-color: #FFFFFF; /* White background for cards */
+            border-radius: 1.5rem; /* Rounded corners */
+            box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.1); /* Soft shadow */
+        }
+        .btn-primary {
+            background-color: #4CAF50; /* Green button */
+            transition: background-color 0.2s ease-in-out;
+        }
+        .btn-primary:hover {
+            background-color: #388E3C; /* Darker green on hover */
+        }
+        .btn-secondary {
+            background-color: #F44336; /* Red for logout */
+            transition: background-color 0.2s ease-in-out;
+        }
+        .btn-secondary:hover {
+            background-color: #D32F2F; /* Darker red on hover */
+        }
+        .section-card {
+            background-color: #F8FDF8; /* Slightly off-white for section cards */
+            border: 1px solid #E0F2F1; /* Light teal border */
+            border-radius: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen items-center p-4">
+
+    <!-- Header and Action Buttons -->
+    <div class="w-full max-w-6xl flex justify-between items-center mb-8 mt-4">
+        <h1 class="text-4xl font-bold text-gray-800">Minifarm Dashboard</h1>
+        <div class="flex space-x-4">
+            <button id="backToFarmSelectionButton" class="btn-primary text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75">
+                <i class="fas fa-arrow-left mr-2"></i> เลือกฟาร์ม
+            </button>
+            <button id="logoutButton" class="btn-secondary text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-75">
+                <i class="fas fa-sign-out-alt mr-2"></i> ออกจากระบบ
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Content -->
+    <div class="card p-8 w-full max-w-6xl text-center">
+        <h2 class="text-3xl font-semibold text-gray-800 mb-6">ภาพรวมฟาร์ม: <span id="farmNameDisplay">ฟาร์มที่เลือก</span></h2>
+        <p class="text-gray-600 mb-8">ยินดีต้อนรับสู่แดชบอร์ดการจัดการฟาร์มของคุณ!</p>
+
+        <!-- Overview Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+            <div class="section-card p-6 flex flex-col items-center">
+                <i class="fas fa-seedling text-green-600 text-4xl mb-3"></i>
+                <h3 class="text-xl font-semibold text-gray-700 mb-2">จำนวนพืช</h3>
+                <p class="text-3xl font-bold text-green-700">120</p>
+                <p class="text-sm text-gray-500">ชนิดพืชทั้งหมด</p>
+            </div>
+            <div class="section-card p-6 flex flex-col items-center">
+                <i class="fas fa-piggy-bank text-yellow-600 text-4xl mb-3"></i>
+                <h3 class="text-xl font-semibold text-gray-700 mb-2">จำนวนสัตว์</h3>
+                <p class="text-3xl font-bold text-yellow-700">35</p>
+                <p class="text-sm text-gray-500">ประเภทสัตว์ทั้งหมด</p>
+            </div>
+            <div class="section-card p-6 flex flex-col items-center">
+                <i class="fas fa-calendar-check text-blue-600 text-4xl mb-3"></i>
+                <h3 class="text-xl font-semibold text-gray-700 mb-2">กิจกรรมวันนี้</h3>
+                <p class="text-3xl font-bold text-blue-700">3</p>
+                <p class="text-sm text-gray-500">รดน้ำ, ให้อาหาร</p>
+            </div>
+            <div class="section-card p-6 flex flex-col items-center">
+                <i class="fas fa-hand-holding-usd text-red-600 text-4xl mb-3"></i>
+                <h3 class="text-xl font-semibold text-gray-700 mb-2">ผลผลิตล่าสุด</h3>
+                <p class="text-3xl font-bold text-red-700">50 kg</p>
+                <p class="text-sm text-gray-500">มะเขือเทศ</p>
+            </div>
+        </div>
+
+        <!-- Quick Links / Navigation -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="section-card p-6 text-left">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4"><i class="fas fa-leaf mr-3 text-green-500"></i>การจัดการพืช</h3>
+                <ul class="space-y-2 text-gray-700">
+                    <li><a href="#" class="text-green-600 hover:underline"><i class="fas fa-plus-circle mr-2"></i> เพิ่มพืชใหม่</a></li>
+                    <li><a href="#" class="text-green-600 hover:underline"><i class="fas fa-list mr-2"></i> ดูรายการพืช</a></li>
+                    <li><a href="#" class="text-green-600 hover:underline"><i class="fas fa-edit mr-2"></i> แก้ไขข้อมูลพืช</a></li>
+                </ul>
+            </div>
+            <div class="section-card p-6 text-left">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4"><i class="fas fa-cow mr-3 text-yellow-500"></i>การจัดการสัตว์</h3>
+                <ul class="space-y-2 text-gray-700">
+                    <li><a href="#" class="text-yellow-600 hover:underline"><i class="fas fa-plus-circle mr-2"></i> เพิ่มสัตว์ใหม่</a></li>
+                    <li><a href="#" class="text-yellow-600 hover:underline"><i class="fas fa-list mr-2"></i> ดูรายการสัตว์</a></li>
+                    <li><a href="#" class="text-yellow-600 hover:underline"><i class="fas fa-edit mr-2"></i> แก้ไขข้อมูลสัตว์</a></li>
+                </ul>
+            </div>
+            <div class="section-card p-6 text-left">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4"><i class="fas fa-tasks mr-3 text-blue-500"></i>กิจกรรมและผลผลิต</h3>
+                <ul class="space-y-2 text-gray-700">
+                    <li><a href="#" class="text-blue-600 hover:underline"><i class="fas fa-calendar-plus mr-2"></i> บันทึกกิจกรรม</a></li>
+                    <li><a href="#" class="text-blue-600 hover:underline"><i class="fas fa-box-open mr-2"></i> บันทึกผลผลิต</a></li>
+                    <li><a href="#" class="text-blue-600 hover:underline"><i class="fas fa-chart-line mr-2"></i> ดูรายงาน</a></li>
+                </ul>
+            </div>
+            <div class="section-card p-6 text-left">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4"><i class="fas fa-users mr-3 text-purple-500"></i>จัดการสมาชิก</h3>
+                <ul class="space-y-2 text-gray-700">
+                    <li><a href="#" class="text-purple-600 hover:underline"><i class="fas fa-user-plus mr-2"></i> เพิ่มสมาชิก</a></li>
+                    <li><a href="#" class="text-purple-600 hover:underline"><i class="fas fa-user-times mr-2"></i> ลบสมาชิก</a></li>
+                    <li><a href="#" class="text-purple-600 hover:underline"><i class="fas fa-user-cog mr-2"></i> จัดการบทบาท</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import Firebase Authentication
+        import { getAuth, signOut } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
+
+        // Initialize Firebase (using the same config as your frontend)
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        const logoutButton = document.getElementById('logoutButton');
+        const backToFarmSelectionButton = document.getElementById('backToFarmSelectionButton');
+        const farmNameDisplay = document.getElementById('farmNameDisplay');
+
+        // Get farm ID from URL query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedFarmId = urlParams.get('farm');
+
+        if (selectedFarmId) {
+            farmNameDisplay.textContent = `ฟาร์ม ${selectedFarmId.toUpperCase()}`; // Example: "ฟาร์ม FARM1"
+            // In a real app, you would fetch the actual farm name from Firestore based on selectedFarmId
+        } else {
+            farmNameDisplay.textContent = 'ไม่พบข้อมูลฟาร์ม';
+        }
+
+        // Event listener for Logout button
+        logoutButton.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                alert('ออกจากระบบสำเร็จ');
+                window.location.href = 'index.html'; // Redirect to login page
+            } catch (error) {
+                console.error('Error signing out:', error);
+                alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message);
+            }
+        });
+
+        // Event listener for Back to Farm Selection button
+        backToFarmSelectionButton.addEventListener('click', () => {
+            window.location.href = 'farm_selection.html'; // Redirect back to farm selection
+        });
+
+        // Basic authentication check (optional, but good practice)
+        // Redirect to login if user is not authenticated
+        auth.onAuthStateChanged(user => {
+            if (!user) {
+                // If no user is logged in, redirect to the login page
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>

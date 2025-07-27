@@ -83,70 +83,7 @@
         </button>
     </div>
 
-    <script type="module">
-        // Import Firebase Authentication
-        import { getAuth, signOut } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
-
-        // Initialize Firebase (using the same config as your frontend)
-        // This config should ideally be loaded from a secure environment variable or a config file
-        // For Canvas environment, __firebase_config is provided globally
-        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        let selectedFarmId = null;
-        const farmCards = document.querySelectorAll('.farm-card');
-        const nextButton = document.getElementById('nextButton');
-        const logoutButton = document.getElementById('logoutButton');
-
-        // Function to handle farm card selection
-        farmCards.forEach(card => {
-            card.addEventListener('click', () => {
-                // Remove 'selected' class from all cards
-                farmCards.forEach(c => c.classList.remove('selected'));
-                // Add 'selected' class to the clicked card
-                card.classList.add('selected');
-                selectedFarmId = card.dataset.farmId; // Get farm ID from data-farm-id attribute
-                nextButton.disabled = false; // Enable the Next button
-            });
-        });
-
-        // Event listener for the Next button
-        nextButton.addEventListener('click', () => {
-            if (selectedFarmId) {
-                console.log('Selected Farm ID:', selectedFarmId);
-                // In a real application, you would save this selection
-                // and redirect to a dashboard specific to this farm.
-                // For now, let's just show an alert and redirect to a placeholder.
-                alert(`คุณได้เลือก ${selectedFarmId} แล้ว!`);
-                // Placeholder redirect: Replace with your actual dashboard page
-                window.location.href = 'dashboard.html?farm=' + selectedFarmId;
-            } else {
-                alert('กรุณาเลือกฟาร์มก่อนดำเนินการต่อ');
-            }
-        });
-
-        // Event listener for the Logout button
-        logoutButton.addEventListener('click', async () => {
-            try {
-                await signOut(auth);
-                alert('ออกจากระบบสำเร็จ');
-                window.location.href = 'index.html'; // Redirect to login page
-            } catch (error) {
-                console.error('Error signing out:', error);
-                alert('เกิดข้อผิดพลาดในการออกจากระบบ: ' + error.message);
-            }
-        });
-
-        // Basic authentication check (optional, but good practice)
-        // Redirect to login if user is not authenticated
-        auth.onAuthStateChanged(user => {
-            if (!user) {
-                // If no user is logged in, redirect to the login page
-                window.location.href = 'index.html';
-            }
-        });
-    </script>
+    <!-- Link to the external JavaScript file -->
+    <script type="module" src="farm_selection.js"></script>
 </body>
 </html>

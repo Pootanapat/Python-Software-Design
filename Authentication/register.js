@@ -86,56 +86,5 @@ loginLink.addEventListener('click', function(event) {
     // ในกรณีนี้ เราให้มันทำงานตาม href ปกติ
     console.log('กำลังเปลี่ยนเส้นทางไปยังหน้าเข้าสู่ระบบ...');
 });
-// register.js - สำหรับหน้าสมัครสมาชิก (register.html)
-document.addEventListener('DOMContentLoaded', () => {
-    const registerForm = document.getElementById('registerForm');
-    const loginLink = document.getElementById('loginLink');
-
-    if (registerForm) {
-        registerForm.addEventListener('submit', async (e) => {
-            e.preventDefault(); // ป้องกันการ Submit ฟอร์มแบบปกติ
-
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-
-            if (password !== confirmPassword) {
-                alert('รหัสผ่านและการยืนยันรหัสผ่านไม่ตรงกัน');
-                return;
-            }
-
-            try {
-                // ส่งข้อมูลไปที่ Backend Node.js
-                const response = await fetch('http://localhost:5000/api/register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ email, password })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    // สมัครสมาชิกสำเร็จ
-                    alert('สมัครสมาชิกสำเร็จ!');
-                    // เปลี่ยนเส้นทางกลับไปหน้า Login
-                    window.location.href = 'index.html'; // <--- เปลี่ยนตรงนี้
-                } else {
-                    // สมัครสมาชิกไม่สำเร็จ
-                    alert('สมัครสมาชิกไม่สำเร็จ: ' + data.message);
-                }
-            } catch (error) {
-                console.error('Error during registration:', error);
-                alert('ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้ กรุณาลองใหม่อีกครั้ง หรือตรวจสอบว่า Backend ทำงานอยู่');
-            }
-        });
-    }
-
-    if (loginLink) {
-        loginLink.addEventListener('click', (e) => {
-            e.preventDefault(); // ป้องกันการเปลี่ยนหน้าแบบปกติ
-            window.location.href = 'index.html'; // เปลี่ยนเส้นทางไปหน้า Login
-        });
-    }
-});
+// *******************************************************************
+// หมายเหตุ: ในโปรเจกต์จริง ควรมีการจัดการ Error Handling ที่เหมาะสม
