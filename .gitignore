@@ -69,3 +69,6 @@ node_modules/
 
 # Firebase Service Account Key (IMPORTANT: DO NOT COMMIT THIS FILE!)
 backend-nodejs/serviceAccountKey.json
+
+# Firebase Functions
+python/my-small-farm-system-firebase-adminsdk-fbsvc-343c1b46e5.json
