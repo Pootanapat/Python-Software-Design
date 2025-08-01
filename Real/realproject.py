@@ -1,2 +1,0 @@
-zxzx
-print("Hello, World!")
