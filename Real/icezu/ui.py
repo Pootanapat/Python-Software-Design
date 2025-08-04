@@ -69,3 +69,8 @@ tk.Button(form_frame, text="บันทึก", command=save_data, font=font_la
 #ตารางรายงาน
 tk.Label(root, text="รายงานกิจกรรม", font=font_title, bg="#f0f5f0").pack
 
+#สไลล์ตาราง
+style = ttk.Style()
+style.configure("Treeview.Heading", font=font_entry, rowheight=30)
+
+
