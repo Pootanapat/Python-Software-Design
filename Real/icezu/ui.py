@@ -1,10 +1,10 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 
-# --- จำลองฐานข้อมูลในหน่วยความจำ ---
+# จำลองฐานข้อมูลในหน่วยความจำ 
 activity_list = []
 
-# --- ฟังก์ชันบันทึกกิจกรรม ---
+# ฟังก์ชันบันทึกกิจกรรม 
 def save_data():
     activity_type = entry_type.get()
     detail = entry_detail.get()
@@ -27,7 +27,7 @@ def save_data():
     entry_date.delete(0, tk.END)
     show_report()
 
-#cแสดงรายงาน
+#แสดงรายงาน
 def show_report():
     for row in report_table.get_children():
         report_table.delete(row)
