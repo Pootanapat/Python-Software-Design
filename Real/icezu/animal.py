@@ -34,4 +34,6 @@ def show_report():
 
     for act in activity_list:
         report_table.insert('', tk.END, values=(act["type"], act["detail"], act["date"]))
-        
+
+# สร้างหน้าหลัก
+
