@@ -1,1 +1,1 @@
-ทำงานด้วยนะจ้ะ
+print("`'''icezu.ui` is deprecated and will be removed in a future release. Please use `icezu.ui` instead.")
