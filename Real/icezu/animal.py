@@ -84,11 +84,11 @@ entry_date = tk.Entry(form_frame, font=font_entry, width=40)
 entry_date.grid(row=2, column=1, padx=10, pady=5)
 
 # บันทึก
-tk.Button(root, text="บันทึกกิจกรรม", font=font_label, bg="#66bb6a", fg="white", command=save_data)\
+tk.Button(root, text="บันทึกการจัดเก็บ", font=font_label, bg="#66bb6a", fg="white", command=save_data)\
     .pack(pady=10)
 
 # ลบกิจกรรม
-tk.Button(root, text="ลบกิจกรรมที่เลือก", font=font_label, bg="#ef5350", fg="white", command=delete_activity)\
+tk.Button(root, text="ลบการจัดเก็บ", font=font_label, bg="#ef5350", fg="white", command=delete_activity)\
     .pack(pady=5)
 
 # รายงาน
