@@ -36,4 +36,8 @@ def show_report():
         report_table.insert('', tk.END, values=(act["type"], act["detail"], act["date"]))
 
 # สร้างหน้าหลัก
+root = tk.Tk()
+root.title("MINIFARM")
+root.geometry("800x600")
+root.configure(bg="#f0f5f0")
 
