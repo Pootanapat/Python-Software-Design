@@ -92,11 +92,11 @@ tk.Button(root, text="ลบกิจกรรมที่เลือก", font
     .pack(pady=5)
 
 # รายงาน
-tk.Label(root, text=" รายงานกิจกรรม", font=font_title, bg="#f0f5f0").pack()
+tk.Label(root, text=" รายงานการจัดเก็บ", font=font_title, bg="#f0f5f0").pack()
 
-report_table = ttk.Treeview(root, columns=("ประเภท", "รายละเอียด", "วันที่"), show="headings")
-report_table.heading("ประเภท", text="ประเภท")
-report_table.heading("รายละเอียด", text="รายละเอียด")
+report_table = ttk.Treeview(root, columns=("ประเภทสัตว์", "จำนวน", "วันที่"), show="headings")
+report_table.heading("ประเภทสัตว์", text="ประเภทสัตว์")
+report_table.heading("จำนวน", text="จำนวน")
 report_table.heading("วันที่", text="วันที่")
 report_table.pack(padx=15, pady=10, fill="both", expand=True)
 
