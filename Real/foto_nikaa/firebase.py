@@ -32,3 +32,5 @@ except FileNotFoundError as e:
 except Exception as e:
     messagebox.showerror("Firebase Initialization Error", f"Failed to initialize Firebase Admin SDK: {e}\nPlease ensure your service account key path is correct and the file exists.")
     exit() # ออกจากโปรแกรมหาก Firebase Initialise ไม่สำเร็จ
+import os
+from tkinter import messagebox
