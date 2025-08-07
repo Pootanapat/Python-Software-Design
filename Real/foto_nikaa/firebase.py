@@ -6,6 +6,8 @@ def initialize_firebase():
     db = firestore.client()
     return db
 
+SERVICE_ACCOUNT_KEY_PATH = "my-small-farm-system-firebase-adminsdk-fbsvc-343c1b46e5.json"
+
 # --- Initialize Firebase Admin SDK ---
 try:
     # Debug prints to check the file path
