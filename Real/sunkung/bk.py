@@ -4,4 +4,4 @@ from firebase_admin import credentials, firestore
 cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
-    
+#ฟังก์ชันสำหรับเพิ่มข้อมูล
