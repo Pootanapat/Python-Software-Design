@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
+from collections import Counter
 
 # จำลองฐานข้อมูลในหน่วยความจำ 
 activity_list = []
@@ -51,6 +52,27 @@ def show_report():
     for act in activity_list:
         report_table.insert('', tk.END, values=(act["type"], act["detail"], act["date"]))
 
+# สรุปข้อมูล (รวมจำนวนสัตว์)
+def show_summary():
+    if not activity_list:
+        messagebox.showinfo("Summary", "ไม่มีข้อมูลกิจกรรม")
+        return
+
+    summary = {}
+    for act in activity_list:
+        animal_type = act["type"]
+        try:
+            quantity = int(act["detail"])
+        except ValueError:
+            quantity = 0
+        summary[animal_type] = summary.get(animal_type, 0) + quantity
+
+    summary_text = "สรุปจำนวนสัตว์:\n"
+    for animal_type, total in summary.items():
+        summary_text += f"{animal_type}: {total} ตัว\n"
+
+    messagebox.showinfo("Summary", summary_text)
+
 # สร้างหน้าหลัก
 root = tk.Tk()
 root.title("MINIFARM")
@@ -91,6 +113,10 @@ tk.Button(root, text="บันทึกการจัดเก็บ", font=fo
 tk.Button(root, text="ลบการจัดเก็บ", font=font_label, bg="#ef5350", fg="white", command=delete_activity)\
     .pack(pady=5)
 
+# ปุ่มสรุปข้อมูล(เอามาไว้ตรงนี้ให้ชัดเจน)
+tk.Button(root, text="สรุปข้อมูล", font=font_label, bg="#42a5f5", fg="white", command=show_summary)\
+    .pack(pady=10)
+
 # รายงาน
 tk.Label(root, text=" รายงานการจัดเก็บ", font=font_title, bg="#f0f5f0").pack()
 
@@ -108,9 +134,7 @@ style.configure("Treeview", font=("Kanit", 10), rowheight=28)
 # แสดงข้อมูล
 show_report()
 
+
 root.mainloop()
 
-# หน้าสรุปจำนวนสัตว์
-def summary():
-    total_animals = len(activity_list)
-    messagebox.showinfo("Summary", f"จำนวนสัตว์ทั้งหมด: {total_animals}")
+
