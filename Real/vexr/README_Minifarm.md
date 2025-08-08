@@ -59,6 +59,7 @@ python main.py
 ## 👨‍💻 ผู้พัฒนา | Developer
 - [Pootanapat Takimnok]
 - Email: 68030231@kmitl.ac.th
+- Email: 68030049@kmitl.ac.th
 
 หากพบปัญหาหรือข้อเสนอแนะ สามารถติดต่อผู้พัฒนาได้ทางอีเมลด้านบน
 
