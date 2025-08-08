@@ -110,3 +110,7 @@ show_report()
 
 root.mainloop()
 
+# หน้าสรุปจำนวนสัตว์
+def summary():
+    total_animals = len(activity_list)
+    messagebox.showinfo("Summary", f"จำนวนสัตว์ทั้งหมด: {total_animals}")
