@@ -49,6 +49,30 @@ def show_report():
     for act in activity_list:
         report_table.insert('', tk.END, values=(act["type"], act["detail"], act["date"]))
 
+    # สรุปข้อมูล (รวมจำนวนพืช)
+def show_summary():
+    if not activity_list:
+        messagebox.showinfo("Summary", "ไม่มีข้อมูลกิจกรรม")
+        return
+
+    summary = {}
+    for act in activity_list:
+        plant_type = act["type"]
+        try:
+            quantity = int(act["detail"])
+        except ValueError:
+            quantity = 0
+        summary[plant_type] = summary.get(plant_type, 0) + quantity
+
+    summary_text = "สรุปจำนวนสัตว์:\n"
+    for animal_type, total in summary.items():
+        summary_text += f"{plant_type}: {total} ตัว\n"
+
+    messagebox.showinfo("Summary", summary_text)
+
+
+
+            
 # สร้างหน้าหลัก
 root = tk.Tk()
 root.title("MINIFARM")
@@ -87,6 +111,10 @@ tk.Button(root, text="บันทึกการจัดเก็บ", font=fo
 
 # ลบกิจกรรม
 tk.Button(root, text="ลบการจัดเก็บ", font=font_label, bg="#ef5350", fg="white", command=delete_activity)\
+    .pack(pady=5)
+
+# ปุ่มสรุปข้อมูล
+tk.Button(root, text="สรุปข้อมูล", font=font_label, bg="#42a5f5", fg="white", command=show_summary)\
     .pack(pady=5)
 
 # รายงาน
