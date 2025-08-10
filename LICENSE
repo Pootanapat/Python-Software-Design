@@ -1,21 +1,45 @@
-MIT License
+Group Project License
+=============================================
 
-Copyright (c) 2025 Pootanapat
+โครงการนี้มีชื่อว่า **MiniFarm**  
+พัฒนาโดยนักศึกษาจำนวน 7 คน แบ่งหน้าที่กันทำแต่ละส่วนของระบบ  
+โดยใช้ภาษา Python เป็นหลัก
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This project, titled **MiniFarm**,  
+was developed as a group work by 7 members, each responsible for separate parts of the system,  
+primarily using the Python programming language.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+รายชื่อสมาชิกกลุ่ม:
+1. VEAR
+2. FOTO
+3. GUN
+4. SUN
+5. ICE
+6. MEJI
+7. INK
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+ลิขสิทธิ์ © 2025 โดยสมาชิกกลุ่มทั้งหมด /  
+Copyright © 2025 by all group members
+
+---------------------------------------------
+**Permissions**
+- อนุญาตให้นำโค้ดไปศึกษา หรือใช้งานเพื่อการเรียนการสอน (ไม่เชิงพาณิชย์) ได้
+- ไม่อนุญาตให้นำไปใช้เพื่อการค้า หรือจำหน่ายต่อโดยไม่ได้รับอนุญาตจากสมาชิกกลุ่มทุกคน
+- หากมีการดัดแปลง ต้องระบุเครดิตให้ชัดเจนว่าเป็นผลงานต่อยอดจากสมาชิกกลุ่มนี้
+
+Permission is hereby granted to view and study the source code  
+for educational and non-commercial purposes only.  
+Redistribution, modification, or use of this project for commercial purposes  
+is strictly prohibited without explicit written consent from all group members.  
+Any derivative works must include clear attribution to the original authors.
+
+---------------------------------------------
+**Disclaimer**
+โครงการนี้จัดทำขึ้นเพื่อการศึกษา "ตามสภาพที่เป็น" โดยไม่มีการรับประกันใดๆ  
+ผู้พัฒนาไม่รับผิดชอบต่อความเสียหายที่อาจเกิดขึ้นจากการใช้งานซอฟต์แวร์นี้
+
+THE PROJECT IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,  
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,  
+AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,  
+DAMAGES, OR OTHER LIABILITY ARISING FROM, OUT OF, OR IN CONNECTION WITH THE PROJECT  
+OR THE USE OR OTHER DEALINGS IN THE PROJECT. 
