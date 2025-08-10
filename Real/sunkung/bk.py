@@ -17,7 +17,7 @@ class FarmManager:
         """เพิ่มสมาชิกในฟาร์ม"""
         farm_doc = self.farm_ref.document(farm_id)
         farm = farm_doc.get().to_dict()
-        members =_farm.get ("members", [])
+        members =farm.get ("members", [])
         members.append(member_name)
         farm_doc.update({"members": members})
         print(f"เพิ่มสมาชิก{member_name} ในฟาร์ม {farm_id}")
