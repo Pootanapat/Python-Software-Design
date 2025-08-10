@@ -20,5 +20,7 @@ class FarmManager:
         members =farm.get ("members", [])
         members.append(member_name)
         farm_doc.update({"members": members})
-        print(f"เพิ่มสมาชิก{member_name} ในฟาร์ม {farm_id}")
-        
+        print(f"เพิ่มสมาชิก{member_name} ในฟาร์ม {farm_id}") 
+
+    def remove_member(self, farm_id, member_name):
+        """ลบสมาชิกฟาร์ม"""
