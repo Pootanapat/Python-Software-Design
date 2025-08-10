@@ -36,3 +36,31 @@ except Exception as e:
     exit() # ออกจากโปรแกรมหาก Firebase Initialise ไม่สำเร็จ
 import os
 from tkinter import messagebox
+# --- Initialize Firebase Firestore ---
+db = initialize_firebase()
+# --- Firebase Firestore Database Reference ---
+def get_firestore_db():
+    return db
+# --- Firebase Firestore Database Reference ---
+def get_firestore_collection(collection_name):
+    return db.collection(collection_name)
+# --- Firebase Firestore Document Reference ---
+def get_firestore_document(collection_name, document_id):
+    return db.collection(collection_name).document(document_id)
+# --- Firebase Firestore Query ---
+def get_firestore_query(collection_name, query):
+    return db.collection(collection_name).where(**query)
+# --- Firebase Firestore Add Document ---
+def add_firestore_document(collection_name, data):
+    return db.collection(collection_name).add(data)
+# --- Firebase Firestore Update Document ---
+def update_firestore_document(collection_name, document_id, data):
+    return db.collection(collection_name).document(document_id).update(data)
+# --- Firebase Firestore Delete Document ---
+def delete_firestore_document(collection_name, document_id):
+    return db.collection(collection_name).document(document_id).delete()
+# --- Firebase Firestore Get Document ---
+def get_firestore_document(collection_name, document_id):
+    return db.collection(collection_name).document(document_id).get().to_dict()
+def get_firestore_all_documents(collection_name):
+    return {doc.id: doc.to_dict() for doc in db.collection(collection_name).get().documents}

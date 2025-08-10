@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
+from collections import Counter
 
 # จำลองฐานข้อมูลในหน่วยความจำ 
 activity_list = []
@@ -51,6 +52,27 @@ def show_report():
     for act in activity_list:
         report_table.insert('', tk.END, values=(act["type"], act["detail"], act["date"]))
 
+# สรุปข้อมูล (รวมจำนวนสัตว์)
+def show_summary():
+    if not activity_list:
+        messagebox.showinfo("Summary", "ไม่มีข้อมูลกิจกรรม")
+        return
+
+    summary = {}
+    for act in activity_list:
+        animal_type = act["type"]
+        try:
+            quantity = int(act["detail"])
+        except ValueError:
+            quantity = 0
+        summary[animal_type] = summary.get(animal_type, 0) + quantity
+
+    summary_text = "สรุปจำนวนสัตว์:\n"
+    for animal_type, total in summary.items():
+        summary_text += f"{animal_type}: {total} ตัว\n"
+
+    messagebox.showinfo("Summary", summary_text)
+
 # สร้างหน้าหลัก
 root = tk.Tk()
 root.title("MINIFARM")
@@ -83,13 +105,21 @@ tk.Label(form_frame, text="วันที่ (YYYY-MM-DD):", font=font_label, b
 entry_date = tk.Entry(form_frame, font=font_entry, width=40)
 entry_date.grid(row=2, column=1, padx=10, pady=5)
 
-# บันทึก
-tk.Button(root, text="บันทึกการจัดเก็บ", font=font_label, bg="#66bb6a", fg="white", command=save_data)\
-    .pack(pady=10)
+# สร้าง frame สำหรับปุ่มจัดเรียงแนวนอน
+button_frame = tk.Frame(root, bg="#f0f5f0")
+button_frame.pack(pady=10)
 
-# ลบกิจกรรม
-tk.Button(root, text="ลบการจัดเก็บ", font=font_label, bg="#ef5350", fg="white", command=delete_activity)\
-    .pack(pady=5)
+# ปุ่มบันทึก
+btn_save = tk.Button(button_frame, text="บันทึกการจัดเก็บ", font=font_label, bg="#66bb6a", fg="white", command=save_data)
+btn_save.pack(side="left", padx=10)
+
+# ปุ่มลบกิจกรรม
+btn_delete = tk.Button(button_frame, text="ลบการจัดเก็บ", font=font_label, bg="#ef5350", fg="white", command=delete_activity)
+btn_delete.pack(side="left", padx=10)
+
+# ปุ่มสรุปข้อมูล
+btn_summary = tk.Button(button_frame, text="สรุปข้อมูล", font=font_label, bg="#42a5f5", fg="white", command=show_summary)
+btn_summary.pack(side="left", padx=10)
 
 # รายงาน
 tk.Label(root, text=" รายงานการจัดเก็บ", font=font_title, bg="#f0f5f0").pack()
@@ -108,5 +138,7 @@ style.configure("Treeview", font=("Kanit", 10), rowheight=28)
 # แสดงข้อมูล
 show_report()
 
+
 root.mainloop()
+
 
