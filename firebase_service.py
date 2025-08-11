@@ -57,3 +57,47 @@ def signup(self, email: str, password: str):
         except Exception as e:
             logger.exception("Signup failed")
             raise FirebaseServiceError(str(e))
+def login(self, email: str, password: str):
+        try:
+            logger.info("Login attempt %s", email)
+            user = auth.sign_in_with_email_and_password(email, password)
+            self.user = user
+            self.token_acquired_at = time.time()
+            # store expiresIn (string seconds) if available
+            logger.info("Login success uid=%s", user.get("localId"))
+            return user
+        except Exception as e:
+            logger.exception("Login failed")
+            raise FirebaseServiceError(str(e))
+
+    def _need_refresh(self):
+        if not self.user or 'expiresIn' not in self.user:
+            return False
+        try:
+            expires = int(self.user.get("expiresIn", 3600))
+        except:
+            expires = 3600
+        if not self.token_acquired_at:
+            return True
+        remain = (self.token_acquired_at + expires) - time.time()
+        return remain < TOKEN_EXPIRY_MARGIN
+
+    def ensure_token(self):
+        if not self.user:
+            raise FirebaseServiceError("Not logged in")
+        if self._need_refresh():
+            try:
+                logger.info("Refreshing token for uid=%s", self.user.get('localId'))
+                refreshed = auth.refresh(self.user['refreshToken'])
+                # refreshed: idToken, userId, refreshToken, expiresIn
+                self.user.update(refreshed)
+                self.token_acquired_at = time.time()
+                logger.info("Token refreshed")
+            except Exception as e:
+                logger.exception("Token refresh failed")
+                raise FirebaseServiceError("Token refresh failed: " + str(e))
+
+    def logout(self):
+        logger.info("User logout uid=%s", self.user.get("localId") if self.user else None)
+        self.user = None
+        self.token_acquired_at = None
