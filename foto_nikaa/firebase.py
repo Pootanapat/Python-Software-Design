@@ -64,3 +64,6 @@ def get_firestore_document(collection_name, document_id):
     return db.collection(collection_name).document(document_id).get().to_dict()
 def get_firestore_all_documents(collection_name):
     return {doc.id: doc.to_dict() for doc in db.collection(collection_name).get().documents}
+def get_firestore_document_by_field(collection_name, field_name, field_value):
+    query = db.collection(collection_name).where(field_name, "==", field_value)
+    return {doc.id: doc.to_dict() for doc in query.get().documents}
