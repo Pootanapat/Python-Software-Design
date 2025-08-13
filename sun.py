@@ -24,3 +24,6 @@ class FarmManager:
 
     def remove_member(self, farm_id, member_name):
         """ลบสมาชิกฟาร์ม"""
+        farm_doc = self.farm_ref.document(farm_id)
+        farm = farm_doc.get().to_dict()
+        members = farm.get("members", [])
