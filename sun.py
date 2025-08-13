@@ -27,3 +27,8 @@ class FarmManager:
         farm_doc = self.farm_ref.document(farm_id)
         farm = farm_doc.get().to_dict()
         members = farm.get("members", [])
+        if member_name in member:
+            member.remove(member_name)
+            farm_doc.update({"members": members})
+            print(f"ลบสมาชิก {member_name} ออกจากฟาร์ม {farm_id}")
+            
