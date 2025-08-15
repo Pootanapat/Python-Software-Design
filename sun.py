@@ -32,3 +32,14 @@ class FarmManager:
             farm_doc.update({"members": members})
             print(f"ลบสมาชิก {member_name} ออกจากฟาร์ม {farm_id}")
             
+        def get_farm(self, farm_id):
+            """ดึงข้อมูลฟาร์ม"""
+            farm = self.farm_ref.get().document(farm_id).to_dict()
+            print(f"ข้อมูลฟาร์ม {farm_id}: {farm}")
+            return farm
+    def list_farms(self):
+        """แสดงรายการฟาร์มทั้งหมด"""
+        farms = self.farm_ref.stream()
+        farm_list = [farm.id for farm in farms]
+        print("ฟาร์มทั้งหมด:", farm_list)
+        return farm_list
