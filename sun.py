@@ -43,3 +43,13 @@ class FarmManager:
         farm_list = [farm.id for farm in farms]
         print("ฟาร์มทั้งหมด:", farm_list)
         return farm_list
+farm = FarmManager()
+
+farm.create_farm("farm01", {"name": "Green farm", "location": "Ladkrabang","members":["sun"]})
+
+#เพิ่มสมาชิก
+farm.add_member("farm01", "gun")
+# ลบสมาชิก
+farm.remove_member("farm01", "sun")
+# ดึงข้อมูลฟาร์ม
+farm.get_farm("farm01")
