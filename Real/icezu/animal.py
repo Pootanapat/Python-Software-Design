@@ -12,7 +12,7 @@ def save_data():
     date = entry_date.get()
 
     if not activity_type or not detail or not date:
-        messagebox.showerror("Error", "กรุณากรอกข้อมูลให้ครบ")
+        messagebox.showerror("Error", "กรุณากรอกข้อมูลให้ถูกต้อง")
         return
 
     activity = {
