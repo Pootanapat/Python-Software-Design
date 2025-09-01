@@ -123,7 +123,7 @@ btn_summary.pack(side="left", padx=10)
 
 
 # รายงาน
-tk.Label(root, text=" รายงานการจัดเก็บ", font=font_title, bg="#f0f5f0").pack()
+tk.Label(root, text=" รายงานการจัดเก็บพืช", font=font_title, bg="#f0f5f0").pack()
 
 report_table = ttk.Treeview(root, columns=("ประเภท", "จำนวน", "วันที่"), show="headings")
 report_table.heading("ประเภท", text="ประเภท")
