@@ -1,90 +1,817 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
-
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/12.0.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/12.0.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/12.0.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/12.0.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/12.0.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/12.0.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/12.0.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/12.0.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/12.0.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/12.0.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สรุปและแบบทดสอบฐานข้อมูล (ฉบับสีฟ้า)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap');
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #e0f2fe;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            border: 1px solid #93c5fd;
+        }
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            color: #0c4a6e;
+        }
+        h1 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #0d9488;
+        }
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid #67e8f9;
+            padding-bottom: 0.5rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #155e75;
+        }
+        h4 {
+            font-size: 1.25rem;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: #0e7490;
+        }
+        p {
+            margin-bottom: 1rem;
+        }
+        ul {
+            list-style-type: none;
+            margin-left: 0;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        ul li:before {
+            content: ' ';
+            margin-right: 0.75rem;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+        .highlight {
+            background-color: #f0f9ff;
+            padding: 1rem;
+            border-left: 5px solid #38bdf8;
+            margin: 1rem 0;
+            border-radius: 0.75rem;
+        }
+        .concept-box {
+            display: flex;
+            align-items: flex-start;
+            padding: 1.5rem;
+            background-color: #e0faff;
+            border-radius: 1rem;
+            border: 1px solid #7dd3fc;
+            margin-bottom: 1.5rem;
+        }
+        .concept-icon {
+            font-size: 3rem;
+            margin-right: 1.5rem;
+        }
+        .concept-text {
+            flex-grow: 1;
+        }
+        .question {
+            background-color: #f0f9ff;
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #93c5fd;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            border: 1px solid #7dd3fc;
+            background-color: #f8fafc;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .options label:hover {
+            background-color: #e0f2fe;
+            transform: translateY(-2px);
+        }
+        .options input[type="radio"] {
+            margin-right: 0.75rem;
+            accent-color: #38bdf8;
+        }
+        .action-button {
+            display: block;
+            width: 100%;
+            background-color: #0ea5e9;
+            color: white;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 2rem;
+            border: none;
+        }
+        .action-button:hover {
+            background-color: #0284c7;
+        }
+        .feedback {
+            margin-top: 1rem;
+            font-weight: 700;
+        }
+        .correct {
+            color: #22c55e;
+        }
+        .incorrect {
+            color: #ef4444;
+        }
+        .reason {
+            font-weight: 400;
+            margin-top: 0.5rem;
+            color: #0e7490;
+        }
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #0ea5e9;
+            color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            z-index: 10;
+        }
+        .scroll-to-top:hover {
+            transform: scale(1.1);
+        }
     </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>vear</h2>
-      <img src="https://i.pinimg.com/736x/fa/b9/a1/fab9a191be02a3c413ee079a1f20276d.jpg" alt="vearza" >
-      <h1>Jaovear</h1>
-      <p>Evolution</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+</head>
+<body>
+    <div class="container">
+        <header class="text-center mb-10">
+            <h1 class="text-teal-600">สรุปแนวข้อสอบกลางภาค</h1>
+            <p class="text-xl text-gray-500">วิชาฐานข้อมูล: บทที่ 3-4 (คะแนน 70 คะแนน)</p>
+        </header>
+
+        <section id="summary" class="card">
+            <h2 class="text-cyan-700">สรุปเนื้อหาหลัก</h2>
+            <div class="concept-box">
+                <div class="concept-text">
+                    <h3 class="mt-0">บทที่ 3: ฐานข้อมูลเชิงสัมพันธ์ (Relational Database)</h3>
+                    <p>แบบจำลองที่ใช้โครงสร้างข้อมูลในรูปของตาราง เพื่อจัดระเบียบข้อมูล คิดค้นโดย Dr. E.F. Codd ในปี 1970</p>
+                    <div class="highlight">
+                        <h4>องค์ประกอบสำคัญของ Relational Model:</h4>
+                        <p>มี 3 ส่วนหลัก ได้แก่ Data Structure (โครงสร้าง), Data Integrity (ความถูกต้อง), และ Data Manipulation (การจัดการ)</p>
+                        <p>ถ้าพูดถึง Relational Model ต้องนึกถึง 3 ส่วนนี้ไว้เลยนะ!</p>
+                    </div>
+                    <h4>โครงสร้างข้อมูลใน Relational Database</h4>
+                    <ul>
+                        <li>Relation (ตาราง): ที่เก็บข้อมูลหลัก ประกอบด้วยแถวและคอลัมน์</li>
+                        <li>Tuple (แถว): ข้อมูลหนึ่งรายการ</li>
+                        <li>Attribute (คอลัมน์): คุณสมบัติของข้อมูล แต่ละ Attribute มี Domain หรือเซตของค่าที่เป็นไปได้</li>
+                    </ul>
+                    <h4>คุณสมบัติของ Relation</h4>
+                    <ul>
+                        <li>ไม่มี Tuple ซ้ำกัน</li>
+                        <li>ลำดับของ Tuple ไม่มีความสำคัญ</li>
+                        <li>แต่ละ Attribute มีชื่อที่ไม่ซ้ำกัน</li>
+                        <li>ค่าของแต่ละ Attribute เป็นแบบ Atomic (ไม่สามารถแบ่งย่อยได้อีก)</li>
+                    </ul>
+                    <h4>ประเภทของ Key</h4>
+                    <ul>
+                        <li>Super Key: เซตของ Attributes ที่ระบุ Tuple ได้ไม่ซ้ำกัน</li>
+                        <li>Candidate Key: Super Key ที่มีขนาดเล็กที่สุด (minimal)</li>
+                        <li>Primary Key (PK): Candidate Key ที่ถูกเลือกเป็นคีย์หลัก (ห้ามซ้ำและห้ามเป็นค่าว่าง)</li>
+                        <li>Foreign Key (FK): Attribute ที่อ้างอิง Primary Key ของตารางอื่น ใช้สร้างความสัมพันธ์</li>
+                    </ul>
+                    <h4>กฎความถูกต้องของข้อมูล (Integrity Constraints)</h4>
+                    <ul>
+                        <li>Entity Integrity: ค่าของ Primary Key ต้องไม่เป็นค่าว่าง (NULL)</li>
+                        <li>Referential Integrity: ค่าของ Foreign Key ต้องตรงกับค่า Primary Key ที่อ้างอิงอยู่</li>
+                    </ul>
+                    <h4>Relational Algebra</h4>
+                    <p>การดำเนินการทางคณิตศาสตร์ที่กระทำบนตาราง (Relations) เป็นภาษาเชิงกระบวนการ (Procedural Language)</p>
+                    <div class="highlight">
+                        สัญลักษณ์ที่ควรรู้:
+                        <ul class="list-none ml-0">
+                            <li>Select ($\sigma$): เลือกแถว (Tuple) ที่ตรงตามเงื่อนไข (คล้ายคำสั่ง WHERE)</li>
+                            <li>Project ($\pi$): เลือกคอลัมน์ (Attribute) ที่ต้องการ (คล้ายคำสั่ง SELECT)</li>
+                            <li>Union ($\cup$): รวมข้อมูลจาก 2 ตารางที่มีโครงสร้างเหมือนกัน</li>
+                            <li>Set Difference (-): หาข้อมูลที่อยู่ในตารางแรกแต่ไม่อยู่ในตารางที่สอง</li>
+                            <li>Cartesian Product ($\times$): รวมทุก Tuple ของตารางแรกกับทุก Tuple ของตารางที่สอง</li>
+                            <li>Join ($\bowtie$): รวมข้อมูลจาก 2 ตารางที่มีความสัมพันธ์กัน เช่น Inner Join (เฉพาะข้อมูลที่ตรงกัน), Outer Join (ข้อมูลที่ตรงกันและข้อมูลที่ไม่ตรงกัน)</li>
+                        </ul>
+                    </div>
+                    <h4>Index</h4>
+                    <p>โครงสร้างข้อมูลที่ช่วยให้การค้นหาข้อมูลเร็วขึ้น คล้ายสารบัญหนังสือ</p>
+                    <ul>
+                        <li>ข้อดี: เพิ่มความเร็วในการสืบค้นข้อมูลอย่างมาก</li>
+                        <li>ข้อเสีย: ใช้พื้นที่จัดเก็บมากขึ้น ทำให้การเพิ่ม/ลบ/แก้ไขข้อมูลช้าลง</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="concept-box">
+                <div class="concept-text">
+                    <h3 class="mt-0">บทที่ 4: Entity-Relationship Model</h3>
+                    <p>แบบจำลองที่ใช้ในการออกแบบฐานข้อมูลเชิงแนวคิด โดยแสดงโครงสร้างความสัมพันธ์ระหว่างข้อมูล</p>
+                    <h4>ER Diagram</h4>
+                    <p>แผนภาพแสดงส่วนประกอบหลักของ ER Model</p>
+                    <ul>
+                        <li>Entity (สี่เหลี่ยม): สิ่งของ, บุคคล, แนวคิด</li>
+                        <li>Weak Entity (สี่เหลี่ยมซ้อน): Entity ที่มีตัวตนได้ต้องอ้างอิงจาก Entity อื่น (มี Identifying Relationship เชื่อมโยง)</li>
+                        <li>Attribute (วงรี): คุณสมบัติของ Entity</li>
+                        <li>Relationship (สี่เหลี่ยมขนมเปียกปูน): ความสัมพันธ์ระหว่าง Entity</li>
+                    </ul>
+                    <h4>ประเภทของ Attribute</h4>
+                    <ul>
+                        <li>Simple Attribute: มีค่าเดียว ไม่สามารถแบ่งย่อยได้อีก เช่น อายุ</li>
+                        <li>Composite Attribute: ประกอบด้วยหลายคุณสมบัติย่อย เช่น ชื่อ-นามสกุล</li>
+                        <li>Multi-valued Attribute: มีได้หลายค่า เช่น เบอร์โทรศัพท์</li>
+                        <li>Derived Attribute: คำนวณค่าได้จาก Attribute อื่น เช่น อายุ (คำนวณจากวันเกิด)</li>
+                    </ul>
+                    <h4>Cardinality (Mapping Constraints)</h4>
+                    <p>จำนวนความสัมพันธ์ที่ Entity สามารถมีได้</p>
+                    <ul>
+                        <li>1:1 (One-to-One): เช่น รถยนต์ 1 คันมีป้ายทะเบียน 1 อัน</li>
+                        <li>1:N (One-to-Many): เช่น อาจารย์ 1 คนสอนได้หลายวิชา</li>
+                        <li>M:N (Many-to-Many): เช่น นักศึกษาหลายคนลงทะเบียนได้หลายวิชา</li>
+                    </ul>
+                    <h4>การแปลง ER Diagram เป็น Relational Model</h4>
+                    <div class="highlight">
+                        <ol>
+                            <li>Entities: แปลงแต่ละ Entity เป็น 1 ตาราง (Table)</li>
+                            <li>Attributes: แปลง Attributes ของ Entity เป็นคอลัมน์ของตาราง</li>
+                            <li>1:1 Relationship: เพิ่ม Foreign Key ในตารางใดตารางหนึ่ง (อาจเลือกตารางที่มีข้อจำกัดน้อยกว่า)</li>
+                            <li>1:N Relationship: เพิ่ม Foreign Key ในตารางด้าน N (Many)</li>
+                            <li>M:N Relationship: ต้องสร้างตารางใหม่ สำหรับความสัมพันธ์ โดยมี Foreign Key จากทั้ง 2 ตารางเดิมเป็น Composite Key</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="#quiz" class="action-button" onclick="scrollToQuiz()">เริ่มทำแบบทดสอบกันเลย!</a>
+        </section>
+
+        <section id="quiz" class="card hidden">
+            <h2 class="text-cyan-700">แบบทดสอบปรนัย (40 ข้อ)</h2>
+            <p>เลือกคำตอบที่ถูกต้องที่สุด</p>
+            
+            <!-- Questions will be generated here by JavaScript -->
+        </section>
+        
+        <a href="#" class="scroll-to-top">▲</a>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
 
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        const quizData = {
+            "questions": [
+                {
+                    "questionNumber": 1,
+                    "question": "ในฐานข้อมูลเชิงสัมพันธ์ แต่ละคอลัมน์ใน Relation เรียกว่าอะไร?",
+                    "answerOptions": [
+                        {"text": "Tuple", "isCorrect": false},
+                        {"text": "Attribute", "isCorrect": true, "reason": "ในฐานข้อมูลเชิงสัมพันธ์ แต่ละคอลัมน์ในตาราง (Relation) จะเรียกว่า Attribute"},
+                        {"text": "Relation", "isCorrect": false},
+                        {"text": "Domain", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 2,
+                    "question": "Primary Key มีคุณสมบัติที่สำคัญอย่างไร?",
+                    "answerOptions": [
+                        {"text": "สามารถมีค่าซ้ำกันได้", "isCorrect": false},
+                        {"text": "สามารถมีค่าเป็น NULL ได้", "isCorrect": false},
+                        {"text": "ต้องมีค่าที่ไม่ซ้ำกันและห้ามเป็น NULL", "isCorrect": true, "reason": "Primary Key เป็นคีย์หลักที่ใช้ระบุข้อมูลในตาราง ดังนั้นจึงต้องมีค่าที่ไม่ซ้ำกัน (unique) และต้องมีค่าเสมอ (non-null)"},
+                        {"text": "ต้องเป็น Foreign Key ในตารางอื่น", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 3,
+                    "question": "กฎความถูกต้องของข้อมูล (Integrity Constraint) ที่กำหนดว่าค่าของ Foreign Key จะต้องตรงกับค่า Primary Key ที่อ้างอิงอยู่ เรียกว่าอะไร?",
+                    "answerOptions": [
+                        {"text": "Entity Integrity", "isCorrect": false},
+                        {"text": "Referential Integrity", "isCorrect": true, "reason": "Referential Integrity เป็นกฎที่ใช้ควบคุมความสัมพันธ์ระหว่างตาราง ทำให้มั่นใจได้ว่าข้อมูลใน Foreign Key นั้นถูกต้องและมีอยู่จริงในตารางที่ถูกอ้างอิง"},
+                        {"text": "Domain Constraint", "isCorrect": false},
+                        {"text": "Key Constraint", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 4,
+                    "question": "Relational Algebra คืออะไร?",
+                    "answerOptions": [
+                        {"text": "คำสั่งในการสร้างฐานข้อมูล", "isCorrect": false},
+                        {"text": "ภาษาสำหรับจัดการข้อมูล", "isCorrect": false},
+                        {"text": "การดำเนินการทางคณิตศาสตร์ที่กระทำบน Relation", "isCorrect": true, "reason": "Relational Algebra เป็นภาษาเชิงกระบวนการ (procedural language) ที่ใช้คำนวณและจัดการข้อมูลในฐานข้อมูลเชิงสัมพันธ์ โดยใช้การดำเนินการทางคณิตศาสตร์"},
+                        {"text": "การสร้างความสัมพันธ์ระหว่างตาราง", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 5,
+                    "question": "ใน ER Diagram, สัญลักษณ์สี่เหลี่ยมใช้แทนอะไร?",
+                    "answerOptions": [
+                        {"text": "Attribute", "isCorrect": false},
+                        {"text": "Relationship", "isCorrect": false},
+                        {"text": "Entity", "isCorrect": true, "reason": "ใน ER Diagram, Entity (เช่น คน, สถานที่, สิ่งของ) จะถูกแทนด้วยสัญลักษณ์สี่เหลี่ยม"},
+                        {"text": "Cardinality", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 6,
+                    "question": "ถ้าความสัมพันธ์ระหว่าง Entity 'นักศึกษา' และ 'วิชาเรียน' คือ นักศึกษาหลายคนสามารถลงทะเบียนในวิชาเรียนหลายวิชาได้ ความสัมพันธ์นี้คือแบบใด?",
+                    "answerOptions": [
+                        {"text": "One-to-One (1:1)", "isCorrect": false},
+                        {"text": "One-to-Many (1:N)", "isCorrect": false},
+                        {"text": "Many-to-One (N:1)", "isCorrect": false},
+                        {"text": "Many-to-Many (M:N)", "isCorrect": true, "reason": "ความสัมพันธ์แบบ Many-to-Many (M:N) เกิดขึ้นเมื่อ Entity ทั้งสองฝั่งสามารถมีได้หลายรายการเชื่อมโยงกับ Entity อีกฝั่งหนึ่ง เช่น นักศึกษาหลายคนลงทะเบียนเรียนได้หลายวิชา และวิชาหนึ่งวิชาก็มีนักศึกษาลงทะเบียนได้หลายคน"},
+                    ]
+                },
+                {
+                    "questionNumber": 7,
+                    "question": "การทำ Index ช่วยอะไรในฐานข้อมูล?",
+                    "answerOptions": [
+                        {"text": "ลดขนาดของฐานข้อมูล", "isCorrect": false},
+                        {"text": "เพิ่มความปลอดภัยของข้อมูล", "isCorrect": false},
+                        {"text": "เพิ่มความเร็วในการสืบค้นข้อมูล", "isCorrect": true, "reason": "Index ทำงานคล้ายกับสารบัญในหนังสือ ทำให้ฐานข้อมูลสามารถค้นหาข้อมูลที่ต้องการได้อย่างรวดเร็วโดยไม่ต้องสแกนข้อมูลทั้งตาราง"},
+                        {"text": "ป้องกันการเกิดข้อมูลซ้ำ", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 8,
+                    "question": "ข้อใดไม่ใช่คุณสมบัติของ Relation ในฐานข้อมูลเชิงสัมพันธ์?",
+                    "answerOptions": [
+                        {"text": "ไม่มี Tuple ที่ซ้ำกัน", "isCorrect": false},
+                        {"text": "ลำดับของ Tuple มีความสำคัญ", "isCorrect": true, "reason": "ใน Relation ลำดับของแถว (Tuple) ไม่มีความสำคัญ เพราะข้อมูลสามารถเข้าถึงได้ผ่านคีย์หลัก (Primary Key)"},
+                        {"text": "แต่ละ Attribute มีชื่อที่ไม่ซ้ำกัน", "isCorrect": false},
+                        {"text": "ค่าของแต่ละ Attribute เป็นค่าแบบ Atomic (ไม่สามารถแบ่งย่อยได้อีก)", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 9,
+                    "question": "คำสั่ง SQL ข้อใดใช้สำหรับสร้าง Index ชื่อ `idx_tel` บนคอลัมน์ `Tel` ในตาราง `student`?",
+                    "answerOptions": [
+                        {"text": "CREATE `idx_tel` INDEX ON student(`Tel`);", "isCorrect": false},
+                        {"text": "ADD INDEX `idx_tel` ON student(`Tel`);", "isCorrect": false},
+                        {"text": "CREATE INDEX `idx_tel` ON student(`Tel`);", "isCorrect": true, "reason": "คำสั่ง `CREATE INDEX` ใช้สำหรับสร้าง Index บนตารางและคอลัมน์ที่ระบุ"},
+                        {"text": "INDEX CREATE `idx_tel` ON student(`Tel`);", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 10,
+                    "question": "สัญลักษณ์วงรีใน ER Diagram ใช้แทนอะไร?",
+                    "answerOptions": [
+                        {"text": "Entity", "isCorrect": false},
+                        {"text": "Relationship", "isCorrect": false},
+                        {"text": "Attribute", "isCorrect": true, "reason": "ใน ER Diagram, Attribute (คุณสมบัติของ Entity) จะถูกแทนด้วยสัญลักษณ์วงรี"},
+                        {"text": "Weak Entity", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 11,
+                    "question": "ถ้าเราต้องการลบ Index ชื่อ `idx_major` ที่สร้างไว้บนตาราง `student` ควรใช้คำสั่งใด?",
+                    "answerOptions": [
+                        {"text": "DELETE INDEX `idx_major` ON student;", "isCorrect": false},
+                        {"text": "DROP INDEX `idx_major` ON student;", "isCorrect": true, "reason": "คำสั่ง `DROP INDEX` ใช้สำหรับลบ Index ที่มีอยู่จากตาราง"},
+                        {"text": "REMOVE INDEX `idx_major` FROM student;", "isCorrect": false},
+                        {"text": "ALTER INDEX `idx_major` DROP FROM student;", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 12,
+                    "question": "Domain คืออะไร?",
+                    "answerOptions": [
+                        {"text": "ชื่อของตาราง", "isCorrect": false},
+                        {"text": "กลุ่มของค่าที่เป็นไปได้สำหรับ Attribute", "isCorrect": true, "reason": "Domain เป็นเซตของค่าที่กำหนดให้กับแต่ละ Attribute เช่น Domain ของ Attribute 'อายุ' คือตัวเลขจำนวนเต็มบวก"},
+                        {"text": "ชื่อของคอลัมน์", "isCorrect": false},
+                        {"text": "จำนวนของแถวในตาราง", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 13,
+                    "question": "ข้อใดคือตัวอย่างของ Many-to-Many Relationship?",
+                    "answerOptions": [
+                        {"text": "อาจารย์สอนวิชาเรียน", "isCorrect": false},
+                        {"text": "นักศึกษาลงทะเบียนเรียนวิชา", "isCorrect": true, "reason": "นักศึกษาหลายคนสามารถลงทะเบียนได้หลายวิชา และวิชาหนึ่งวิชาก็สามารถมีนักศึกษาหลายคนลงทะเบียนได้"},
+                        {"text": "พนักงานและแผนก", "isCorrect": false},
+                        {"text": "รถยนต์และป้ายทะเบียน", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 14,
+                    "question": "การดำเนินการใน Relational Algebra ที่ใช้เลือกแถว (Tuple) ที่ตรงตามเงื่อนไขที่กำหนดคือข้อใด?",
+                    "answerOptions": [
+                        {"text": "Project", "isCorrect": false},
+                        {"text": "Select", "isCorrect": true, "reason": "Select ($$\sigma$$) เป็นการดำเนินการที่ใช้กรองแถว (Tuple) ที่ตรงตามเงื่อนไขที่กำหนด"},
+                        {"text": "Union", "isCorrect": false},
+                        {"text": "Join", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 15,
+                    "question": "ใน ER Diagram สัญลักษณ์ที่ใช้เชื่อมระหว่าง Entity กับ Relationship คือสัญลักษณ์อะไร?",
+                    "answerOptions": [
+                        {"text": "สี่เหลี่ยม", "isCorrect": false},
+                        {"text": "วงรี", "isCorrect": false},
+                        {"text": "สี่เหลี่ยมขนมเปียกปูน", "isCorrect": false},
+                        {"text": "เส้นตรง", "isCorrect": true, "reason": "เส้นตรงใช้เพื่อแสดงการเชื่อมโยงระหว่าง Entity และ Relationship ใน ER Diagram"},
+                    ]
+                },
+                {
+                    "questionNumber": 16,
+                    "question": "Foreign Key ทำหน้าที่อะไร?",
+                    "answerOptions": [
+                        {"text": "เป็นคีย์ที่ไม่ซ้ำกันในตารางของตัวเอง", "isCorrect": false},
+                        {"text": "ระบุแถวที่ไม่ซ้ำกันในตาราง", "isCorrect": false},
+                        {"text": "สร้างความสัมพันธ์กับตารางอื่นโดยการอ้างอิง Primary Key ของตารางนั้น", "isCorrect": true, "reason": "Foreign Key คือคอลัมน์ในตารางหนึ่งที่เก็บค่าจาก Primary Key ของอีกตารางหนึ่ง เพื่อสร้างความสัมพันธ์และเชื่อมโยงข้อมูลเข้าด้วยกัน"},
+                        {"text": "ใช้เป็นคีย์หลักในการจัดเรียงข้อมูล", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 17,
+                    "question": "การดำเนินการใน Relational Algebra ที่ใช้เลือกคอลัมน์ (Attribute) ที่ต้องการคือข้อใด?",
+                    "answerOptions": [
+                        {"text": "Select", "isCorrect": false},
+                        {"text": "Project", "isCorrect": true, "reason": "Project ($$\pi$$) เป็นการดำเนินการที่ใช้เลือกคอลัมน์ (Attribute) ที่ต้องการแสดงผลลัพธ์"},
+                        {"text": "Join", "isCorrect": false},
+                        {"text": "Difference", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 18,
+                    "question": "ถ้าเราต้องการลบ Primary Key ออกจากตาราง `student` ควรใช้คำสั่งใด?",
+                    "answerOptions": [
+                        {"text": "DELETE PRIMARY KEY ON student;", "isCorrect": false},
+                        {"text": "DROP PRIMARY KEY ON student;", "isCorrect": false},
+                        {"text": "ALTER TABLE student DROP PRIMARY KEY;", "isCorrect": true, "reason": "คำสั่ง ALTER TABLE ... DROP PRIMARY KEY เป็นคำสั่งมาตรฐานของ SQL ที่ใช้สำหรับลบ Primary Key ของตาราง"},
+                        {"text": "REMOVE PRIMARY KEY FROM student;", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 19,
+                    "question": "ข้อใดเป็นคุณสมบัติของ Candidate Key?",
+                    "answerOptions": [
+                        {"text": "ต้องเป็นคีย์หลักของตาราง", "isCorrect": false},
+                        {"text": "มีค่าซ้ำกันในตารางได้", "isCorrect": false},
+                        {"text": "เป็นคอลัมน์ที่สามารถเป็น Primary Key ได้", "isCorrect": true, "reason": "Candidate Key คือคอลัมน์หรือกลุ่มของคอลัมน์ที่สามารถใช้เป็น Primary Key ได้ ซึ่งต้องไม่ซ้ำกันและไม่มีค่าว่าง"},
+                        {"text": "ต้องอ้างอิงถึง Primary Key ของตารางอื่น", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 20,
+                    "question": "ข้อใดไม่ใช่ส่วนประกอบหลักของ ER Model?",
+                    "answerOptions": [
+                        {"text": "Entities", "isCorrect": false},
+                        {"text": "Relationships", "isCorrect": false},
+                        {"text": "Attributes", "isCorrect": false},
+                        {"text": "Tables", "isCorrect": true, "reason": "ER Model เป็นแบบจำลองเชิงแนวคิดที่ใช้ในการออกแบบฐานข้อมูล ซึ่งประกอบด้วย Entity, Attribute และ Relationship ส่วน Table เป็นส่วนประกอบของ Relational Model"},
+                    ]
+                },
+                {
+                    "questionNumber": 21,
+                    "question": "คำสั่ง SQL ข้อใดที่ใช้ในการสร้าง Index ชื่อ `idx_c4` ในคอลัมน์ `c4` ของตาราง `table_name` ในขั้นตอนการสร้างตาราง?",
+                    "answerOptions": [
+                        {"text": "INDEX `idx_c4`(`c4`)", "isCorrect": false},
+                        {"text": "KEY `idx_c4`(`c4`)", "isCorrect": false},
+                        {"text": "ADD INDEX `idx_c4`(`c4`)", "isCorrect": false},
+                        {"text": "INDEX idx_c4(c4)", "isCorrect": true, "reason": "ไวยากรณ์ที่ถูกต้องในการสร้าง Index ระหว่างการสร้างตารางคือ `INDEX index_name(column_name)`"},
+                    ]
+                },
+                {
+                    "questionNumber": 22,
+                    "question": "ใน ER Diagram สัญลักษณ์ที่ใช้แสดงคุณสมบัติที่มีค่าเดียวคืออะไร?",
+                    "answerOptions": [
+                        {"text": "วงรีเส้นประ", "isCorrect": false},
+                        {"text": "วงรีที่มีเส้นใต้ยาง", "isCorrect": false},
+                        {"text": "วงรี", "isCorrect": true, "reason": "วงรีธรรมดาใช้แทน Simple Attribute หรือคุณสมบัติที่มีค่าเดียว"},
+                        {"text": "วงรีที่มีวงรีซ้อนกัน", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 23,
+                    "question": "ข้อใดคือวัตถุประสงค์หลักของการทำ Data Manipulation ในฐานข้อมูล?",
+                    "answerOptions": [
+                        {"text": "การกำหนดโครงสร้างของข้อมูล", "isCorrect": false},
+                        {"text": "การควบคุมความถูกต้องของข้อมูล", "isCorrect": false},
+                        {"text": "การเพิ่ม, ลบ, แก้ไข, และสืบค้นข้อมูล", "isCorrect": true, "reason": "Data Manipulation Language (DML) คือภาษาที่ใช้ในการจัดการข้อมูลในฐานข้อมูล เช่น INSERT, UPDATE, DELETE, และ SELECT"},
+                        {"text": "การกำหนดสิทธิ์การเข้าถึงข้อมูล", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 24,
+                    "question": "ข้อใดเป็นข้อดีของฐานข้อมูลเชิงสัมพันธ์?",
+                    "answerOptions": [
+                        {"text": "มีความซับซ้อนในการทำความเข้าใจสูง", "isCorrect": false},
+                        {"text": "ไม่สามารถสร้างความสัมพันธ์ระหว่างตารางได้", "isCorrect": false},
+                        {"text": "ข้อมูลมีการจัดระเบียบในรูปแบบของตารางที่เข้าใจง่าย", "isCorrect": true, "reason": "ฐานข้อมูลเชิงสัมพันธ์จัดเก็บข้อมูลในรูปแบบของตารางที่มีโครงสร้างชัดเจน ทำให้ง่ายต่อการจัดการและทำความเข้าใจ"},
+                        {"text": "การจัดเก็บข้อมูลต้องใช้พื้นที่มากเกินไป", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 25,
+                    "question": "คุณสมบัติใดที่ทำให้ Candidate Key แตกต่างจาก Super Key?",
+                    "answerOptions": [
+                        {"text": "Candidate Key ต้องประกอบด้วยคอลัมน์เพียงหนึ่งคอลัมน์เท่านั้น", "isCorrect": false},
+                        {"text": "Super Key มีค่าเป็น NULL ได้ แต่ Candidate Key ห้ามมี", "isCorrect": false},
+                        {"text": "Candidate Key เป็น Super Key ที่มีขนาดเล็กที่สุด", "isCorrect": true, "reason": "Candidate Key คือ Super Key ที่ไม่มีคุณสมบัติย่อยใด ๆ ที่สามารถลบออกได้และยังคงมีคุณสมบัติในการระบุที่ไม่ซ้ำกันอยู่"},
+                        {"text": "Super Key ต้องเป็น Primary Key", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 26,
+                    "question": "ใน ER Diagram สี่เหลี่ยมซ้อนกันใช้แทนอะไร?",
+                    "answerOptions": [
+                        {"text": "Entity", "isCorrect": false},
+                        {"text": "Relationship", "isCorrect": false},
+                        {"text": "Weak Entity", "isCorrect": true, "reason": "สี่เหลี่ยมซ้อนกันใช้เพื่อแสดง Weak Entity ซึ่งเป็น Entity ที่ไม่สามารถมีตัวตนได้หากปราศจาก Entity อื่น"},
+                        {"text": "Strong Entity", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 27,
+                    "question": "การดำเนินการ `Project` ใน Relational Algebra เทียบได้กับส่วนใดของคำสั่ง SQL?",
+                    "answerOptions": [
+                        {"text": "SELECT ...", "isCorrect": true, "reason": "การดำเนินการ Project ($$\pi$$) เลือกคอลัมน์ที่ต้องการจาก Relation ซึ่งมีหน้าที่คล้ายกับคำสั่ง SELECT ใน SQL"},
+                        {"text": "FROM ...", "isCorrect": false},
+                        {"text": "WHERE ...", "isCorrect": false},
+                        {"text": "GROUP BY ...", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 28,
+                    "question": "ข้อใดเป็นคุณสมบัติของ Derived Attribute?",
+                    "answerOptions": [
+                        {"text": "ต้องมีหลายค่าในหนึ่ง Entity", "isCorrect": false},
+                        {"text": "มีค่าเดียวและไม่สามารถคำนวณจาก Attribute อื่นได้", "isCorrect": false},
+                        {"text": "มีหลายคุณสมบัติย่อยในหนึ่ง Attribute", "isCorrect": false},
+                        {"text": "สามารถคำนวณค่าได้จาก Attribute อื่น", "isCorrect": true, "reason": "Derived Attribute คือคุณสมบัติที่มีค่าซึ่งสามารถคำนวณได้จากคุณสมบัติอื่น ๆ ที่มีอยู่แล้ว เช่น อายุสามารถคำนวณได้จากวันเกิด"},
+                    ]
+                },
+                {
+                    "questionNumber": 29,
+                    "question": "เมื่อเราแปลง ER Diagram เป็นตาราง ถ้ามีความสัมพันธ์แบบ M:N (Many-to-Many) ควรจัดการอย่างไร?",
+                    "answerOptions": [
+                        {"text": "สร้างตารางใหม่เพื่อเก็บความสัมพันธ์", "isCorrect": true, "reason": "ความสัมพันธ์แบบ M:N ต้องสร้างตารางใหม่ (linking table) เพื่อเก็บ Foreign Key จากทั้งสองตารางเดิม"},
+                        {"text": "เพิ่ม Foreign Key ในตารางใดตารางหนึ่ง", "isCorrect": false},
+                        {"text": "เพิ่ม Foreign Key ในทั้งสองตาราง", "isCorrect": false},
+                        {"text": "ไม่จำเป็นต้องทำอะไร", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 30,
+                    "question": "ข้อใดเป็นข้อดีของ Inner Join?",
+                    "answerOptions": [
+                        {"text": "แสดงข้อมูลทั้งหมดจากตารางด้านซ้าย", "isCorrect": false},
+                        {"text": "แสดงข้อมูลทั้งหมดจากตารางด้านขวา", "isCorrect": false},
+                        {"text": "แสดงข้อมูลที่ตรงกันจากทั้งสองตารางเท่านั้น", "isCorrect": true, "reason": "Inner Join จะแสดงผลลัพธ์เฉพาะข้อมูลที่ตรงกันจากทั้งสองตารางตามเงื่อนไขที่กำหนด"},
+                        {"text": "แสดงข้อมูลทั้งหมดจากทั้งสองตาราง", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 31,
+                    "question": "ใน ER Diagram เส้นที่เชื่อมระหว่างวงรีและสี่เหลี่ยมเรียกว่าอะไร?",
+                    "answerOptions": [
+                        {"text": "Entity", "isCorrect": false},
+                        {"text": "Relationship", "isCorrect": false},
+                        {"text": "Attribute", "isCorrect": false},
+                        {"text": "Link", "isCorrect": true, "reason": "เส้นตรงใช้เพื่อเชื่อมโยง Entity และ Attribute เข้าด้วยกัน"},
+                    ]
+                },
+                {
+                    "questionNumber": 32,
+                    "question": "Relational Model คิดค้นโดยใคร?",
+                    "answerOptions": [
+                        {"text": "Bill Gates", "isCorrect": false},
+                        {"text": "Steve Jobs", "isCorrect": false},
+                        {"text": "E.F. Codd", "isCorrect": true, "reason": "Dr. E.F. Codd เป็นผู้คิดค้นและเผยแพร่แนวคิดของ Relational Model ในปี ค.ศ. 1970"},
+                        {"text": "Linus Torvalds", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 33,
+                    "question": "ข้อใดเป็นข้อเสียของการใช้ Index มากเกินไป?",
+                    "answerOptions": [
+                        {"text": "ทำให้การค้นหาช้าลง", "isCorrect": false},
+                        {"text": "ใช้พื้นที่จัดเก็บข้อมูลมากขึ้น", "isCorrect": false},
+                        {"text": "ทำให้การแก้ไข, เพิ่ม, ลบข้อมูลช้าลง", "isCorrect": true, "reason": "การเพิ่ม, ลบ, หรือแก้ไขข้อมูลในตารางที่มี Index จะทำให้ฐานข้อมูลต้องอัปเดต Index ด้วย ซึ่งใช้เวลาและทรัพยากรมากขึ้น"},
+                        {"text": "ทำให้ข้อมูลในตารางไม่เป็นระเบียบ", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 34,
+                    "question": "ใน ER Diagram สี่เหลี่ยมซ้อนกันใช้แทนอะไร?",
+                    "answerOptions": [
+                        {"text": "สี่เหลี่ยมธรรมดา", "isCorrect": false},
+                        {"text": "สี่เหลี่ยมซ้อนกัน", "isCorrect": true, "reason": "สี่เหลี่ยมซ้อนกันใช้เพื่อแสดง Weak Entity ที่มีตัวตนขึ้นอยู่กับ Entity อื่น"},
+                        {"text": "วงรีเส้นประ", "isCorrect": false},
+                        {"text": "สี่เหลี่ยมขนมเปียกปูน", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 35,
+                    "question": "ข้อใดเป็นตัวอย่างของ One-to-One Relationship?",
+                    "answerOptions": [
+                        {"text": "พนักงานและแผนก", "isCorrect": false},
+                        {"text": "รถยนต์และป้ายทะเบียน", "isCorrect": true, "reason": "รถยนต์หนึ่งคันจะมีป้ายทะเบียนได้เพียงหนึ่งอัน และป้ายทะเบียนหนึ่งอันก็ใช้ได้กับรถยนต์เพียงหนึ่งคัน"},
+                        {"text": "นักศึกษาและวิชาเรียน", "isCorrect": false},
+                        {"text": "ลูกค้าและสินค้า", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 36,
+                    "question": "การดำเนินการ `Union` ใน Relational Algebra ทำหน้าที่อะไร?",
+                    "answerOptions": [
+                        {"text": "รวมข้อมูลจากสอง Relation ที่มีโครงสร้างเหมือนกัน", "isCorrect": true, "reason": "Union ($$\cup$$) ใช้รวมแถวจากสอง Relation เข้าด้วยกัน โดย Relation ทั้งสองต้องมีจำนวนและประเภทของคอลัมน์เหมือนกัน"},
+                        {"text": "รวมข้อมูลจากสอง Relation ที่มีความสัมพันธ์กัน", "isCorrect": false},
+                        {"text": "หาข้อมูลที่แตกต่างกันระหว่างสอง Relation", "isCorrect": false},
+                        {"text": "หาข้อมูลที่เหมือนกันระหว่างสอง Relation", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 37,
+                    "question": "ใน ER Diagram สี่เหลี่ยมขนมเปียกปูนซ้อนกันใช้แทนอะไร?",
+                    "answerOptions": [
+                        {"text": "Relationship", "isCorrect": false},
+                        {"text": "Weak Relationship", "isCorrect": true, "reason": "สี่เหลี่ยมขนมเปียกปูนซ้อนกันใช้เพื่อแสดงถึงความสัมพันธ์ที่เชื่อมโยงระหว่าง Weak Entity และ Strong Entity"},
+                        {"text": "Entity", "isCorrect": false},
+                        {"text": "Cardinality", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 38,
+                    "question": "คุณสมบัติของ Relation ที่ระบุว่าแต่ละคอลัมน์ต้องมีชื่อที่ไม่ซ้ำกันคือข้อใด?",
+                    "answerOptions": [
+                        {"text": "Tuple Ordering", "isCorrect": false},
+                        {"text": "Atomicity", "isCorrect": false},
+                        {"text": "Attribute Naming", "isCorrect": true, "reason": "แต่ละคอลัมน์ใน Relation จะต้องมีชื่อที่ไม่ซ้ำกันเพื่อไม่ให้เกิดความสับสนเมื่อมีการอ้างอิงถึงข้อมูล"},
+                        {"text": "Data Type", "isCorrect": false}
+                    ]
+                },
+                {
+                    "questionNumber": 39,
+                    "question": "ข้อใดไม่ใช่องค์ประกอบของ Relational Model?",
+                    "answerOptions": [
+                        {"text": "Data Structure", "isCorrect": false},
+                        {"text": "Data Integrity", "isCorrect": false},
+                        {"text": "Data Manipulation", "isCorrect": false},
+                        {"text": "Data Redundancy", "isCorrect": true, "reason": "Relational Model มีเป้าหมายเพื่อลด Data Redundancy (ข้อมูลซ้ำซ้อน) ไม่ใช่เป็นองค์ประกอบของมัน"},
+                    ]
+                },
+                {
+                    "questionNumber": 40,
+                    "question": "ใน ER Diagram ถ้าความสัมพันธ์ระหว่าง `Customer` และ `Order` เป็นแบบ 1:N (One-to-Many) ควรวาง Foreign Key ที่ใด?",
+                    "answerOptions": [
+                        {"text": "ในตาราง `Customer`", "isCorrect": false},
+                        {"text": "ในตาราง `Order`", "isCorrect": true, "reason": "ตามกฎการแปลง ER เป็น Relational Model ถ้าความสัมพันธ์เป็นแบบ 1:N ต้องนำ Foreign Key ไปใส่ในตารางด้าน N (Many) ซึ่งในกรณีนี้คือตาราง `Order`"},
+                        {"text": "สร้างตารางใหม่สำหรับ Foreign Key", "isCorrect": false},
+                        {"text": "ในตารางทั้งสอง", "isCorrect": false}
+                    ]
+                }
+            ]
+        };
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+        function generateQuiz() {
+            const quizContainer = document.getElementById('quiz');
+            quizContainer.innerHTML = '';
+            
+            quizData.questions.forEach(q => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                const correctAnswer = q.answerOptions.find(opt => opt.isCorrect);
+                questionDiv.dataset.answer = correctAnswer.text;
+                questionDiv.dataset.reason = correctAnswer.reason;
+
+                const questionText = document.createElement('p');
+                questionText.textContent = `${q.questionNumber}. ${q.question}`;
+                questionDiv.appendChild(questionText);
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'options';
+                q.answerOptions.forEach((opt, index) => {
+                    const label = document.createElement('label');
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = `q${q.questionNumber}`;
+                    input.value = opt.text;
+                    label.appendChild(input);
+                    label.appendChild(document.createTextNode(opt.text));
+                    optionsDiv.appendChild(label);
+                });
+                questionDiv.appendChild(optionsDiv);
+
+                const feedbackDiv = document.createElement('div');
+                feedbackDiv.className = 'feedback';
+                questionDiv.appendChild(feedbackDiv);
+                
+                quizContainer.appendChild(questionDiv);
+            });
+            
+            const checkButton = document.createElement('button');
+            checkButton.className = 'action-button';
+            checkButton.textContent = 'ตรวจคำตอบ';
+            checkButton.onclick = checkAnswers;
+            quizContainer.appendChild(checkButton);
+
+            const summaryDiv = document.createElement('div');
+            summaryDiv.id = 'quiz-summary';
+            summaryDiv.className = 'feedback';
+            quizContainer.appendChild(summaryDiv);
         }
-      });
+
+        function scrollToQuiz() {
+            const quizSection = document.getElementById('quiz');
+            if (quizSection.classList.contains('hidden')) {
+                quizSection.classList.remove('hidden');
+                generateQuiz();
+            }
+            quizSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function checkAnswers() {
+            const questions = document.querySelectorAll('.question');
+            let correctCount = 0;
+            questions.forEach(q => {
+                const selectedInput = q.querySelector('input:checked');
+                const feedback = q.querySelector('.feedback');
+                const correctAnswer = q.dataset.answer;
+                const correctReason = q.dataset.reason;
+                
+                if (selectedInput) {
+                    const selectedValue = selectedInput.value;
+                    if (selectedValue === correctAnswer) {
+                        correctCount++;
+                        feedback.innerHTML = `
+                            <span class="correct">คำตอบถูกต้อง!</span>
+                            <div class="reason">${correctReason}</div>
+                        `;
+                    } else {
+                        feedback.innerHTML = `
+                            <span class="incorrect">คำตอบไม่ถูกต้อง</span>
+                            <div class="reason">คำตอบที่ถูกต้องคือ: <span class="correct">${correctAnswer}</span><br>${correctReason}</div>
+                        `;
+                    }
+                } else {
+                    feedback.innerHTML = `
+                        <span class="incorrect">คุณยังไม่ได้เลือกคำตอบ</span>
+                        <div class="reason">คำตอบที่ถูกต้องคือ: <span class="correct">${correctAnswer}</span><br>${correctReason}</div>
+                    `;
+                }
+                
+                feedback.style.display = 'block';
+            });
+
+            const summary = document.getElementById('quiz-summary');
+            summary.textContent = `คุณทำถูก ${correctCount} ข้อ จากทั้งหมด ${questions.length} ข้อ`;
+            summary.style.color = correctCount === questions.length ? '#22c55e' : '#ef4444';
+        }
+
+        const scrollToTopBtn = document.querySelector(".scroll-to-top");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 200) {
+                scrollToTopBtn.style.display = "flex";
+            } else {
+                scrollToTopBtn.style.display = "none";
+            }
+        });
+
+        scrollToTopBtn.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
     </script>
-  </body>
+</body>
 </html>
