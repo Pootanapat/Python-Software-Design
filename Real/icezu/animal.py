@@ -93,17 +93,17 @@ form_frame = tk.Frame(root, bg="#e8f5e9", padx=15, pady=15)
 form_frame.pack(pady=5, fill="x")
 
 #ชนิดสัตว์
-tk.Label(form_frame, text="ชนิดสัตว์:", font=font_label, bg="#e8f5e9").grid(row=0, column=0, sticky="e")
+tk.Label(form_frame, text="ชนิดสัตว์ : ", font=font_label, bg="#e8f5e9").grid(row=0, column=0, sticky="e")
 entry_type = tk.Entry(form_frame, font=font_entry, width=40)
 entry_type.grid(row=0, column=1, padx=10, pady=5)
 
 #จำนวนสัตว์
-tk.Label(form_frame, text="จำนวน (ตัว):", font=font_label, bg="#e8f5e9").grid(row=1, column=0, sticky="e")
+tk.Label(form_frame, text="จำนวน (ตัว) : ", font=font_label, bg="#e8f5e9").grid(row=1, column=0, sticky="e")
 entry_detail = tk.Entry(form_frame, font=font_entry, width=40)
 entry_detail.grid(row=1, column=1, padx=10, pady=5)
 
 #วันที่
-tk.Label(form_frame, text="วันที่ (YYYY-MM-DD):", font=font_label, bg="#e8f5e9").grid(row=2, column=0, sticky="e")
+tk.Label(form_frame, text="วันที่ (YYYY-MM-DD) : ", font=font_label, bg="#e8f5e9").grid(row=2, column=0, sticky="e")
 entry_date = tk.Entry(form_frame, font=font_entry, width=40)
 entry_date.grid(row=2, column=1, padx=10, pady=5)
 
