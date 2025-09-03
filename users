@@ -1,0 +1,9 @@
+{
+  user_id: "user_id",
+  username: "ชื่อผู้ใช้",
+  email: "อีเมล",
+  display_name: "ชื่อที่แสดง",
+  created_at: timestamp,
+  updated_at: timestamp,
+  farms: ["farm_id1", "farm_id2"]
+}

@@ -1,0 +1,17 @@
+{
+  farm_id: "farm_abc123",
+  name: "ชื่อฟาร์ม",
+  description: "คำอธิบาย",
+  location: "ที่ตั้ง",
+  owner_id: "user_id",
+  created_at: timestamp,
+  updated_at: timestamp,
+  members: [
+    {
+      user_id: "user_id",
+      role: "owner|manager|member|viewer",
+      joined_at: timestamp,
+      added_by: "user_id"
+    }
+  ]
+}
