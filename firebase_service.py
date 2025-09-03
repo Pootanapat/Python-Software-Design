@@ -13,7 +13,7 @@ fmt = logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s")
 fh.setFormatter(fmt)
 logger.addHandler(fh)
 
-# ----------------- Firebase config (แก้ให้เป็นของคุณ) -----------------
+# ----------------- Firebase config (แก้ให้ตรงกับใน Firebase) -----------------
 firebaseConfig = {
     "apiKey": "YOUR_API_KEY",
     "authDomain": "YOUR_PROJECT_ID.firebaseapp.com",
