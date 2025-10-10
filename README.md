@@ -1,80 +1,42 @@
-# คู่มือการใช้งาน Git สำหรับแต่ละ Branch
+# MINIFARM (Python + Tkinter + Firebase)
 
-โปรเจกต์นี้ถูกแบ่งออกเป็นหลาย Branch ตามชื่อของแต่ละคน เพื่อให้ทำงานแยกกันอย่างอิสระ  
-ห้ามแก้ไขไฟล์ใน Branch ของคนอื่น และควรทำงานเฉพาะใน Branch ของตัวเองเท่านั้น
+แอพจัดการฟาร์มขนาดเล็กที่ใช้ Python (Tkinter) เป็น GUI และเชื่อมต่อกับ Firebase เพื่อจัดเก็บข้อมูลผู้ใช้, ฟาร์ม, สัตว์, พืช และการจัดการสิทธิ์ (Role-based Access)
 
-## รายชื่อ Branch และผู้รับผิดชอบ
-| Branch | ผู้ดูแล |
-|--------|---------|
-| `VEAR` | Vear |
-| `FOTO` | Foto |
-| `GUN`  | Gun |
-| `SUN`  | Sun |
-| `ICE`  | Ice |
-| `MEJI` | Meji |
-| `INK`  | Ink |
+## ✅ คุณสมบัติ
 
----
+- **ระบบ Login/Signup** ผ่าน Firebase Authentication
+- **สร้างฟาร์มใหม่** หรือ **เข้าร่วมฟาร์มของผู้อื่น** ด้วยอีเมลเจ้าของ
+- **ระบบจัดการสิทธิ์ (Role-based permissions)**:
+  - `owner`: ดู, เพิ่ม, แก้ไข, ลบ ได้ทั้งหมด
+  - `animal_manager`: ดู, เพิ่ม, แก้ไข, ลบ สัตว์
+  - `plant_manager`: ดู, เพิ่ม, แก้ไข, ลบ พืช
+  - `viewer`: ดูอย่างเดียว
+- **ระบบจัดการสัตว์/พืช**:
+  - เพิ่ม/แก้ไข/ลบ ข้อมูลสัตว์/พืช
+  - บันทึกเวลาล่าสุดที่ให้อาหาร/รดน้ำ (ใช้เวลาของประเทศไทย)
+- **ระบบเชิญสมาชิก** และ **ตั้งบทบาท**
+- **แสดงกิจกรรม (Log)** (อยู่ในแผนพัฒนา)
+- **ปุ่มลบฟาร์ม** (เฉพาะเจ้าของ)
 
-## ขั้นตอนการทำงาน
+## 📦 โครงสร้างโปรเจกต์
 
-### 1. ตรวจสอบว่าอยู่ใน Branch ของตัวเอง
-```bash
-git branch
-```
-ถ้าไม่ได้อยู่ใน Branch ของตัวเอง ให้สลับไปก่อน เช่น:
-```bash
-git checkout ICE    # เปลี่ยน ICE เป็น branch ของคุณ
-```
-
----
-
-### 2. ดึงโค้ดล่าสุดของ Branch ตัวเอง
-```bash
-git pull origin ICE   # เปลี่ยน ICE เป็น branch ของคุณ
-```
-
----
-
-### 3. เพิ่มไฟล์ใหม่หรือแก้ไขไฟล์
-เพิ่มไฟล์เข้า staging:
-```bash
-git add .
-```
-หรือเพิ่มเฉพาะไฟล์:
-```bash
-git add ชื่อไฟล์
-```
-
----
-
-### 4. Commit โค้ด
-```bash
-git commit -m "คำอธิบายสิ่งที่แก้ไข"
-```
-
----
-
-### 5. Push โค้ดขึ้น GitHub
-```bash
-git push origin ICE   # เปลี่ยน ICE เป็น branch ของคุณ
-```
-
----
-
-## ตัวอย่างการทำงานเต็มขั้นตอน (สำหรับ ICE)
-```bash
-git checkout ICE
-git pull origin ICE
-# แก้ไขไฟล์ หรือ เพิ่มไฟล์ใหม่
-git add .
-git commit -m "เพิ่มหน้า dashboard"
-git push origin ICE
-```
-
----
-
-## ข้อควรระวัง
-- ห้ามทำงานใน `main` หรือ Branch ของคนอื่น
-- ก่อนเริ่มงานใหม่ทุกครั้ง ควร `git pull` branch ของตัวเองก่อน
-- Commit message ควรบอกสิ่งที่ทำอย่างชัดเจน
+FarmApp_Tkinter/
+├── main.py
+├── firebase_config.py
+├── utils.py
+├── requirements.txt
+├── screens/
+│ ├── login_screen.py
+│ ├── signup_screen.py
+│ ├── farm_selection_screen.py
+│ ├── create_farm_screen.py
+│ ├── farm_dashboard.py
+│ ├── animal_screen.py
+│ ├── plant_screen.py
+│ ├── add_animal_screen.py
+│ ├── add_plant_screen.py
+│ ├── edit_item_screen.py
+│ ├── manager_screen.py
+│ ├── invite_member_screen.py
+│ └── role_permission_screen.py
+└── README.md
