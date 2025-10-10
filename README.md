@@ -1,6 +1,6 @@
-# MINIFARM (Python + Tkinter + Firebase)
+# MiniFarm (Python + Tkinter + Firebase)
 
-แอพจัดการฟาร์มขนาดเล็กที่ใช้ Python (Tkinter) เป็น GUI และเชื่อมต่อกับ Firebase เพื่อจัดเก็บข้อมูลผู้ใช้, ฟาร์ม, สัตว์, พืช และการจัดการสิทธิ์ (Role-based Access)
+แอพจัดการฟาร์มขนาดเล็กที่ใช้ **Python (Tkinter)** เป็น GUI และเชื่อมต่อกับ **Firebase** เพื่อจัดเก็บข้อมูลผู้ใช้, ฟาร์ม, สัตว์, พืช และการจัดการสิทธิ์ (Role-based Access)
 
 ## ✅ คุณสมบัติ
 
@@ -18,25 +18,45 @@
 - **แสดงกิจกรรม (Log)** (อยู่ในแผนพัฒนา)
 - **ปุ่มลบฟาร์ม** (เฉพาะเจ้าของ)
 
-## 📦 โครงสร้างโปรเจกต์
+## 🔧 วิธีติดตั้ง
 
-FarmApp_Tkinter/
-├── main.py
-├── firebase_config.py
-├── utils.py
-├── requirements.txt
-├── screens/
-│ ├── login_screen.py
-│ ├── signup_screen.py
-│ ├── farm_selection_screen.py
-│ ├── create_farm_screen.py
-│ ├── farm_dashboard.py
-│ ├── animal_screen.py
-│ ├── plant_screen.py
-│ ├── add_animal_screen.py
-│ ├── add_plant_screen.py
-│ ├── edit_item_screen.py
-│ ├── manager_screen.py
-│ ├── invite_member_screen.py
-│ └── role_permission_screen.py
-└── README.md
+1. ติดตั้ง dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+ตั้งค่า Firebase:
+ไปที่ Firebase Console
+สร้างโปรเจกต์ใหม่
+เปิดใช้งาน Authentication และ Realtime Database
+แก้ไข firebase_config.py ให้ตรงกับโปรเจกต์ของคุณ
+
+## 🔧 วิธีรันแอพ
+
+python main.py
+
+## 📝 ข้อควรรู้
+
+    ต้องเปิดใช้งาน Email/Password sign-in method ใน Firebase Authentication
+    ต้องตั้งค่า Realtime Database rules ให้เหมาะสม
+    ใช้ pytz สำหรับการจัดการเวลาในเขตเวลาของประเทศไทย
+
+## 🌍 เขตเวลา
+
+    ระบบใช้เวลาของประเทศไทย (Asia/Bangkok) ในการบันทึก last_fed และ last_watered
+
+## 🛠️ ฟีเจอร์ที่พัฒนาต่อได้
+
+    ระบบแจ้งเตือน (เช่น แจ้งเวลาให้อาหาร)
+    รายงาน/สถิติ (เช่น จำนวนสัตว์/พืชในแต่ละเดือน)
+    ระบบเชิญผ่านลิงก์อีเมล
+    รองรับหลายภาษา (i18n)
+
+## 📌 ผู้พัฒนา
+
+    [ภูธนพัตน์ ตากิ่มนอก]
+
+## 📄 ลิขสิทธิ์
+
+    MIT License
