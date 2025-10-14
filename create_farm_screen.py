@@ -1,0 +1,54 @@
+import tkinter as tk
+from tkinter import messagebox
+from firebase_config import db
+from utils import add_log
+
+class CreateFarmScreen:
+    def __init__(self, app):
+        self.app = app
+        self.frame = tk.Frame(app.root, bg="#f5f5f5")
+        self.frame.pack(fill="both", expand=True)
+
+        # หัวเรื่อง
+        title_label = tk.Label(self.frame, text="Create New Farm", font=("Arial", 16, "bold"), bg="#f5f5f5", fg="#2c3e50")
+        title_label.pack(pady=30)
+
+        # ช่องกรอกชื่อฟาร์ม
+        name_label = tk.Label(self.frame, text="Farm Name", font=("Arial", 12), bg="#f5f5f5", fg="#2c3e50")
+        name_label.pack(pady=(10, 5))
+        self.name_entry = tk.Entry(self.frame, font=("Arial", 12), width=30, relief="solid", bd=1)
+        self.name_entry.pack(pady=5)
+
+        # ปุ่มสร้าง
+        create_btn = tk.Button(self.frame, text="Create Farm", font=("Arial", 12, "bold"), bg="#2ecc71", fg="white", relief="flat", width=20, height=2, command=self.create_farm)
+        create_btn.pack(pady=20)
+        create_btn.bind("<Enter>", lambda e: create_btn.config(bg="#27ae60"))
+        create_btn.bind("<Leave>", lambda e: create_btn.config(bg="#2ecc71"))
+
+        # ปุ่มกลับ
+        back_btn = tk.Button(self.frame, text="← Back", font=("Arial", 10, "bold"), bg="#95a5a6", fg="white", relief="flat", width=10, command=self.go_back)
+        back_btn.pack(pady=10)
+        back_btn.bind("<Enter>", lambda e: back_btn.config(bg="#7f8c8d"))
+        back_btn.bind("<Leave>", lambda e: back_btn.config(bg="#95a5a6"))
+
+    def create_farm(self):
+        name = self.name_entry.get()
+        if not name:
+            messagebox.showwarning("Warning", "Please enter a farm name.")
+            return
+        user_id = self.app.current_user['localId']
+        try:
+            farm_data = {"name": name, "owner": user_id}
+            farm_id = db.child("farms").push(farm_data)["name"]
+            db.child("users").child(user_id).child("farms").child(farm_id).set({"name": name})
+            db.child("farms").child(farm_id).child("members").child(user_id).set("owner")
+            add_log(farm_id, user_id, "created_farm", {"name": name})
+            messagebox.showinfo("Success", "Farm created successfully!")
+            self.go_back()
+        except Exception as e:
+            messagebox.showerror("Error", f"Could not create farm: {str(e)}")
+
+    def go_back(self):
+        self.app.clear_window()
+        from screens.farm_selection_screen import FarmSelectionScreen
+        FarmSelectionScreen(self.app)
