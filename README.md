@@ -26,6 +26,7 @@
 pip install -r requirements.txt
 ```
 
+<<<<<<< HEAD
 ตั้งค่า Firebase:
 ไปที่ Firebase Console
 สร้างโปรเจกต์ใหม่
@@ -59,4 +60,36 @@ python main.py
 
 ## 📄 ลิขสิทธิ์
 
+=======
+## 🔧 ตั้งค่า Firebase:
+
+ไปที่ Firebase Console
+สร้างโปรเจกต์ใหม่
+เปิดใช้งาน Authentication และ Realtime Database
+แก้ไข firebase_config.py ให้ตรงกับโปรเจกต์ของคุณ
+
+## 🔧 วิธีรันแอพ
+
+python main.py
+
+## 📝 ข้อควรรู้
+
+    ต้องเปิดใช้งาน Email/Password sign-in method ใน Firebase Authentication
+    ต้องตั้งค่า Realtime Database rules ให้เหมาะสม
+    ใช้ pytz สำหรับการจัดการเวลาในเขตเวลาของประเทศไทย
+
+## 🌍 เขตเวลา
+
+    ระบบใช้เวลาของประเทศไทย (Asia/Bangkok) ในการบันทึก last_fed และ last_watered
+
+## 🛠️ ฟีเจอร์ที่พัฒนาต่อได้
+
+    ระบบแจ้งเตือน (เช่น แจ้งเวลาให้อาหาร)
+    รายงาน/สถิติ (เช่น จำนวนสัตว์/พืชในแต่ละเดือน)
+    ระบบเชิญผ่านลิงก์อีเมล
+    รองรับหลายภาษา (i18n)
+
+## 📄 ลิขสิทธิ์
+
+>>>>>>> feature/email-invite
     MIT License
