@@ -85,5 +85,4 @@ python main.py
 
 ## 📄 ลิขสิทธิ์
 
->>>>>>> feature/email-invite
     MIT License
